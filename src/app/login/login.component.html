@@ -1,25 +1,20 @@
-<div class="container">
-    <!-- Left side for login form -->
-    <div class="login-section">
-      <div class="login-container">
-        <h2>SignIn</h2>
-        <form>
-          <div>
-            <label class="username" for="username">Admin Username</label>
-            <input type="text" id="username" placeholder="Enter username" />
-          </div>
-          <div>
-            <label class ="password" for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter password" />
-          </div>
-          <button type="submit">Login</button>
-        </form>
+<div class="login-page">
+  <h1 class="app-title">EmployeeConnect</h1>
+  <div class="login-container">
+    <button class="close-button">×</button>
+    <h2>Login Form</h2>
+    <!-- ngSubmit directive binds to the onLogin method -->
+    <form (ngSubmit)="onLogin()">
+      <div>
+        <label for="username">Admin username</label>
+        <input type="text" id="username" placeholder="Enter username" name="username" [(ngModel)]="username" required />
       </div>
-    </div>
-  
-    <!-- Right side for application name -->
-    <div class="application-name">
-      <h1>EmployeeConnect</h1>  <!-- You can change this name to any of the suggested names -->
-    </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter password" name="password" [(ngModel)]="password" required />
+      </div>
+      <a href="#" class="forgot-password">Forgot Password?</a>
+      <button type="submit" class="login-button">Login</button>
+    </form>
   </div>
-  
+</div>

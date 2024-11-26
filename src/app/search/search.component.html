@@ -1,0 +1,58 @@
+<div class="search-page">
+    <h1 class="search-title">Employee Search</h1>
+    <div class="search-container">
+      <form (ngSubmit)="onSearch()">
+        <div>
+          <label for="searchType">Search by</label>
+          <select id="searchType" [(ngModel)]="searchType" name="searchType" required>
+            <option value="name">Name</option>
+            <option value="department">Department</option>
+            <option value="role">Role</option>
+          </select>
+        </div>
+  
+        <div *ngIf="searchType === 'name'">
+          <label for="name">Enter Name</label>
+          <input type="text" id="name" [(ngModel)]="searchValue" name="name" placeholder="Search by employee name" required />
+        </div>
+        
+        <div *ngIf="searchType === 'department'">
+          <label for="department">Enter Department</label>
+          <input type="text" id="department" [(ngModel)]="searchValue" name="department" placeholder="Search by department" required />
+        </div>
+  
+        <div *ngIf="searchType === 'role'">
+          <label for="role">Enter Role</label>
+          <input type="text" id="role" [(ngModel)]="searchValue" name="role" placeholder="Search by role" required />
+        </div>
+  
+        <button type="submit" class="search-button">Search</button>
+      </form>
+  
+      <div *ngIf="filteredEmployees.length > 0">
+        <h3>Search Results:</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Employee ID</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of filteredEmployees">
+              <td>{{ employee.id }}</td>
+              <td>{{ employee.name }}</td>
+              <td>{{ employee.department }}</td>
+              <td>{{ employee.role }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="filteredEmployees.length === 0 && searchValue">
+        <p>No employees found</p>
+      </div>
+    </div>
+  </div>
+  
