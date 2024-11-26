@@ -1,0 +1,81 @@
+<app-navbar></app-navbar>
+<div class="working-hours-page">
+    <h2>Working Hours Entry</h2>
+  
+    <!-- Date Picker -->
+    <div class="form-header">
+      <label for="date">Date:</label>
+      <input type="date" id="date" [(ngModel)]="date" name="date" required />
+    </div>
+  
+    <!-- Table for Employee Details -->
+    <table>
+      <thead>
+        <tr>
+          <th>Employee ID</th>
+          <th>Employee Name</th>
+          <th>Project</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of workingHours; let i = index">
+          <td>
+            <input
+              type="text"
+              placeholder="Enter Employee ID"
+              [(ngModel)]="row.employeeId"
+              name="employeeId-{{ i }}"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              placeholder="Enter Employee Name"
+              [(ngModel)]="row.employeeName"
+              name="employeeName-{{ i }}"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              placeholder="Enter Project"
+              [(ngModel)]="row.project"
+              name="project-{{ i }}"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="time"
+              [(ngModel)]="row.startTime"
+              name="startTime-{{ i }}"
+              required
+            />
+          </td>
+          <td>
+            <input
+              type="time"
+              [(ngModel)]="row.endTime"
+              name="endTime-{{ i }}"
+              required
+            />
+          </td>
+          <td>
+            <button type="button" class="remove-button" (click)="removeRow(i)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Buttons -->
+    <div class="form-actions">
+      <button type="button" class="add-button" (click)="addRow()">Add Row</button>
+      <button type="button" class="submit-button" (click)="onSubmit()">Submit</button>
+    </div>
+  </div>
+  

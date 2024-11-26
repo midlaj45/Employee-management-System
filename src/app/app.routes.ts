@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { SearchComponent } from './search/search.component';
+import { FormsModule } from '@angular/forms';
+import { WorkingHoursComponent } from './working-hours/working-hours.component';
 
-// Export routes if needed elsewhere
 export const routes: Routes = [
-  { path: '', component: LoginComponent }, // Default route
-  { path: '**', redirectTo: '', pathMatch: 'full' } // Catch-all route
+  { path: 'login', component: LoginComponent }, 
+  { path: 'search', component: SearchComponent },
+  { path: 'working-hours', component: WorkingHoursComponent },// Default route
+  { path: '', redirectTo: 'login', pathMatch: 'full' } // Catch-all route
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),FormsModule],
   exports: [RouterModule], // Only RouterModule should be exported
+
 })
 export class AppRoutingModule {}
