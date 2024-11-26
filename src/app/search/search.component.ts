@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from '../shared/navbar/navbar.component';  // Relative path from search component to navbar
+
 
 @Component({
   selector: 'app-search',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,NavbarComponent,],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
