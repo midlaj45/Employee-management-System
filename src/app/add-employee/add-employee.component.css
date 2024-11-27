@@ -1,0 +1,149 @@
+body {
+
+    font-family: Arial, sans-serif;
+
+    background-color: #f2f3f5;
+
+    color: #f2f3f5;
+
+  }
+
+  .form-container {
+
+    margin: 20px auto;
+
+    padding: 20px;
+
+    max-width: 800px;
+
+    background-color: #f2f3f5;
+
+    border-radius: 8px;
+
+    box-shadow: 0 4px 8px rgba(253, 253, 253, 0.2);
+
+  }
+
+  h1 {
+
+    font-size: 24px;
+
+    margin-bottom: 10px;
+
+    text-align: center;
+
+  }
+ 
+  
+
+  p {
+
+    text-align: center;
+
+    margin-bottom: 20px;
+
+  }
+
+  form {
+
+    display: flex;
+
+    flex-direction: column;
+
+  }
+
+  fieldset {
+
+    border: 1px solid #4a6572;
+
+    margin-bottom: 20px;
+
+    padding: 20px;
+
+    border-radius: 6px;
+
+  }
+
+  legend {
+
+    padding: 0 10px;
+
+    font-size: 18px;
+
+    color: #f2f3f5;
+
+  }
+
+  .form-row {
+
+    display: flex;
+
+    flex-direction: column;
+
+    margin-bottom: 15px;
+
+  }
+
+  label {
+
+    margin-bottom: 5px;
+
+  }
+
+  input,
+
+  select,
+
+  button {
+
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid #4a6572;
+
+    border-radius: 4px;
+
+    background: #f2f3f5;
+
+    color: #151f25;
+
+  }
+
+  input:focus,
+
+  select:focus {
+
+    outline: none;
+
+    border-color:#4a6572;
+
+  }
+
+  button {
+
+    margin-top: 10px;
+
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+
+    cursor: pointer;
+
+    border: none;
+
+  }
+
+  .error {
+
+    color: red;
+
+    font-size: 0.9em;
+
+  }
+
+  button:disabled {
+
+    background-color: #ccc;
+
+  }
+
+ 

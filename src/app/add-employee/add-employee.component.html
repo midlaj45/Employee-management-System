@@ -1,0 +1,108 @@
+<app-navbar></app-navbar>
+<div class="form-container">
+    <h1>New Employee Registration Form</h1>
+    <p>Please fill out the form to complete your registration. Thank you!</p>
+   
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+      <!-- Name Section -->
+      <fieldset>
+        <legend>Name</legend>
+        <div class="form-row">
+          <label for="firstName">First Name *</label>
+          <input
+            id="firstName"
+            formControlName="firstName"
+            placeholder="Enter First Name"
+          />
+          <!-- Validation Message -->
+          <div *ngIf="isFieldInvalid('firstName')" class="error">
+            First Name is required.
+          </div>
+        </div>
+   
+        <div class="form-row">
+          <label for="lastName">Last Name *</label>
+          <input
+            id="lastName"
+            formControlName="lastName"
+            placeholder="Enter Last Name"
+          />
+          <!-- Validation Message -->
+          <div *ngIf="isFieldInvalid('lastName')" class="error">
+            Last Name is required.
+          </div>
+        </div>
+      </fieldset>
+   
+      <!-- Department and Role Section -->
+      <fieldset>
+        <legend>Job Details</legend>
+        <div class="form-row">
+          <label for="department">Department *</label>
+          <select id="department" formControlName="department">
+            <option value="" disabled>Select Department</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Finance">Finance</option>
+            <option value="HR">HR</option>
+          </select>
+          <!-- Validation Message -->
+          <div *ngIf="isFieldInvalid('department')" class="error">
+            Department is required.
+          </div>
+        </div>
+   
+        <div class="form-row">
+          <label for="role">Role *</label>
+          <select id="role" formControlName="role">
+            <option value="" disabled>Select Role</option>
+            <option value="Developer">Developer</option>
+            <option value="Tester">Tester</option>
+          </select>
+          <!-- Validation Message -->
+          <div *ngIf="isFieldInvalid('role')" class="error">
+            Role is required.
+          </div>
+        </div>
+      </fieldset>
+   
+      <!-- Contact Information -->
+      <fieldset>
+        <legend>Contact Information</legend>
+        <div class="form-row">
+          <label for="email">E-mail *</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="example@email.com"
+          />
+          <!-- Validation Message -->
+          <div *ngIf="isFieldInvalid('email')" class="error">
+            A valid email is required.
+          </div>
+        </div>
+   
+        <div class="form-row">
+          <label for="mobileNumber">Mobile Number *</label>
+          <input
+            id="mobileNumber"
+            formControlName="mobileNumber"
+            placeholder="1234567890"
+          />
+          <!-- Validation Message -->
+          <div *ngIf="isFieldInvalid('mobileNumber')" class="error">
+            Mobile number must be 10 to 15 digits.
+          </div>
+        </div>
+      </fieldset>
+   
+      <!-- Submit Button -->
+      <button type="submit">Submit</button>
+    </form>
+   
+    <!-- Success Message -->
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+  </div>
+   

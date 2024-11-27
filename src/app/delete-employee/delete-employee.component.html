@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+<div class="form-container">
+    <h1>Delete Employee</h1>
+    <p>Enter the Employee ID or Name to find the employee details.</p>
+  
+    <!-- Search Form -->
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <div class="form-row">
+        <label for="employeeId">Employee ID</label>
+        <input
+          id="employeeId"
+          formControlName="employeeId"
+          placeholder="Enter Employee ID"
+        />
+      </div>
+  
+      <div class="form-row">
+        <label for="employeeName">Employee Name</label>
+        <input
+          id="employeeName"
+          formControlName="employeeName"
+          placeholder="Enter Employee Name"
+        />
+      </div>
+  
+      <button type="submit">Search</button>
+    </form>
+  
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Employee Details -->
+    <div *ngIf="employee">
+      <h2>Employee Details</h2>
+      <p><strong>ID:</strong> {{ employee.id }}</p>
+      <p><strong>Name:</strong> {{ employee.name }}</p>
+      <p><strong>Department:</strong> {{ employee.department }}</p>
+      <p><strong>Role:</strong> {{ employee.role }}</p>
+  
+      <!-- Delete Button -->
+      <button (click)="onDelete()">Delete</button>
+    </div>
+  
+    <!-- Success Message -->
+    <div *ngIf="successMessage" class="success">
+      {{ successMessage }}
+    </div>
+  </div>
+  
+ 
