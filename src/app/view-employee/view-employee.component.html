@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<div class="employee-container">
+    <h1>Employee Table</h1>
+  
+    <!-- Employee Table -->
+    <table class="employee-table">
+      <thead>
+        <tr>
+          <th>Employee ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Department</th>
+          <th>Role</th>
+          <th>Email</th>
+          <th>Mobile Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <td>{{ employee.id }}</td>
+          <td>{{ employee.firstName }}</td>
+          <td>{{ employee.lastName }}</td>
+          <td>{{ employee.department }}</td>
+          <td>{{ employee.role }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.mobileNumber }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

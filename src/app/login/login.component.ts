@@ -22,7 +22,7 @@ export class LoginComponent {
   constructor(private router: Router) {}
   onLogin() {
     if (this.username && this.password) {
-      this.router.navigate(['search']); // Navigate to the search page
+      this.router.navigate(['dashboard']); // Navigate to the search page
     } else {
       alert('Please enter both username and password');
     }
