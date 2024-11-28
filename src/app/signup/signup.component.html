@@ -1,61 +1,84 @@
 <div class="signup-page">
-    <h1 class="app-title">EmployeeConnect</h1>
-    <div class="signup-container">
-      <button class="close-button">×</button>
-      <h2>Signup Form</h2>
-      <form (ngSubmit)="onSignup()">
-        <div>
-          <label for="name">Full Name</label>
-          <input
-            type="text"
-            id="name"
-            placeholder="Enter your full name"
-            name="name"
-            [(ngModel)]="name"
-            required
-          />
+  <h1 class="app-title">EmployeeConnect</h1>
+  <div class="signup-container">
+    <button class="close-button">×</button>
+    <h2>Signup Form</h2>
+    <form (ngSubmit)="onSignup()">
+      <!-- Full Name -->
+      <div>
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          placeholder="Enter your full name"
+          name="name"
+          [(ngModel)]="name"
+        />
+        <div *ngIf="errors['name']" class="error-message">{{ errors['name'] }}</div>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          name="email"
+          [(ngModel)]="email"
+        />
+        <div *ngIf="errors['email']" class="error-message">{{ errors['email'] }}</div>
+      </div>
+
+      <!-- Username -->
+      <div>
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          placeholder="Enter your username"
+          name="username"
+          [(ngModel)]="username"
+        />
+        <div *ngIf="errors['username']" class="error-message">{{ errors['username'] }}</div>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Create a password"
+          name="password"
+          [(ngModel)]="password"
+        />
+        <div *ngIf="errors['password']" class="error-message">{{ errors['password'] }}</div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div>
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Confirm your password"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+        />
+        <div *ngIf="errors['confirmPassword']" class="error-message">
+          {{ errors['confirmPassword'] }}
         </div>
-        <div>
-          <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            name="email"
-            [(ngModel)]="email"
-            required
-          />
+        <div *ngIf="errors['passwordMismatch']" class="error-message">
+          {{ errors['passwordMismatch'] }}
         </div>
-        <div>
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            placeholder="Enter your username"
-            name="username"
-            [(ngModel)]="username"
-            required
-          />
-        </div>
-        <div>
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Create a password"
-            name="password"
-            [(ngModel)]="password"
-            required
-          />
-        </div>
-        <button type="submit" class="signup-button">Signup</button>
-        
-        <p class="login-text">
-            Already have an account? <a  (click)="navigateToLogin()">Login here</a>
-          </p>
-           
-      </form>
-      
-    </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="signup-button">Signup</button>
+      <p class="login-text">
+        Already have an account? <a (click)="navigateToLogin()">Login here</a>
+      </p>
+    </form>
   </div>
-  
+</div>

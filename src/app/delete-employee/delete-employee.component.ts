@@ -1,68 +1,48 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { EmployeeService } from '../employee.service';  // Make sure the service is imported
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-delete-employee',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule,NavbarComponent,],
+  imports: [CommonModule, NavbarComponent,ReactiveFormsModule, ],
   templateUrl: './delete-employee.component.html',
   styleUrls: ['./delete-employee.component.css'],
 })
 export class DeleteEmployeeComponent {
-  searchForm: FormGroup;
-  employee: any = null; // Placeholder for employee details
+  deleteForm: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
- 
-  constructor(private fb: FormBuilder) {
-    this.searchForm = this.fb.group({
-      employeeId: [''], // Employee ID (optional)
-      employeeName: [''], // Employee Name (optional)
+
+  constructor(private fb: FormBuilder, private employeeService: EmployeeService) {
+    this.deleteForm = this.fb.group({
+      employeeId: [''],  // Only employee ID for deletion
     });
   }
- 
-  // Simulate a database
-  private employeesDB = [
-    { id: '1', name: 'John Doe', department: 'Engineering', role: 'Developer' },
-    { id: '2', name: 'Jane Smith', department: 'HR', role: 'Manager' },
-  ];
- 
-  // Search Functionality
-  onSearch() {
-    this.errorMessage = '';
-    this.successMessage = '';
-    const { employeeId, employeeName } = this.searchForm.value;
- 
-    // Check if either ID or Name is entered
-    if (!employeeId && !employeeName) {
-      this.errorMessage = 'Please enter Employee ID or Name to search.';
-      return;
-    }
- 
-    // Search in the mock database
-    this.employee = this.employeesDB.find(
-      (emp) =>
-        (employeeId && emp.id === employeeId) ||
-        (employeeName && emp.name.toLowerCase() === employeeName.toLowerCase())
-    );
- 
-    if (!this.employee) {
-      this.errorMessage = 'Employee does not exist.';
-    }
-  }
- 
+
   // Delete Functionality
   onDelete() {
-    if (this.employee) {
-      // Remove employee from the mock database
-      this.employeesDB = this.employeesDB.filter((emp) => emp.id !== this.employee.id);
- 
-      this.successMessage = 'Employee deleted successfully.';
-      this.employee = null; // Clear the displayed employee
+    this.errorMessage = '';
+    this.successMessage = '';
+    const { employeeId } = this.deleteForm.value;
+
+    // Check if employeeId is provided
+    if (!employeeId) {
+      this.errorMessage = 'Please enter Employee ID to delete.';
+      return;
     }
+
+    // Call the deleteEmployee service method
+    this.employeeService.deleteEmployee(employeeId).subscribe(
+      (response) => {
+        this.successMessage = 'Employee deleted successfully.';
+        this.deleteForm.reset();  // Reset the form after successful deletion
+      },
+      (error) => {
+        this.errorMessage = 'Error deleting employee: ' + error.message;
+      }
+    );
   }
 }
- 
- 
- 

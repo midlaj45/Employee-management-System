@@ -1,67 +1,103 @@
 <app-navbar></app-navbar>
+
 <div class="form-container">
-    <h1>Update Employee</h1>
-  
-    <!-- Search Employee Form -->
-    <form [formGroup]="searchForm" (ngSubmit)="searchEmployee()">
-      <div class="form-row">
-        <label for="employeeId">Employee ID</label>
-        <input id="employeeId" formControlName="employeeId" placeholder="Enter Employee ID" />
-      </div>
-      <button type="submit">Search</button>
-      <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-    </form>
-  
-    <!-- Update Employee Form -->
-    <div *ngIf="updateForm">
-      <h2>Edit Employee Details</h2>
-      <form [formGroup]="updateForm" (ngSubmit)="updateEmployee()">
-        
-        <!-- First Name -->
-        <div class="form-row">
-          <label for="firstName">First Name</label>
-          <input id="firstName" formControlName="firstName" placeholder="Enter First Name" />
-        </div>
-  
-        <!-- Last Name -->
-        <div class="form-row">
-          <label for="lastName">Last Name</label>
-          <input id="lastName" formControlName="lastName" placeholder="Enter Last Name" />
-        </div>
-  
-        <!-- Department -->
-        <div class="form-row">
-          <label for="department">Department</label>
-          <input id="department" formControlName="department" placeholder="Enter Department" />
-        </div>
-  
-        <!-- Role -->
-        <div class="form-row">
-          <label for="role">Role</label>
-          <input id="role" formControlName="role" placeholder="Enter Role" />
-        </div>
-  
-        <!-- Email -->
-        <div class="form-row">
-          <label for="email">Email</label>
-          <input id="email" type="email" formControlName="email" placeholder="Enter Email" />
-        </div>
-  
-        <!-- Mobile Number -->
-        <div class="form-row">
-          <label for="mobileNumber">Mobile Number</label>
-          <input id="mobileNumber" formControlName="mobileNumber" placeholder="Enter Mobile Number" />
-        </div>
-  
-        <!-- Submit Button -->
-        <div class="form-row">
-          <button type="submit">Apply</button>
-        </div>
-        
-        <!-- Success Message -->
-        <div *ngIf="successMessage" class="success">
-          {{ successMessage }}
-        </div>
-      </form>
+  <h1>Update Employee</h1>
+
+  <!-- Search Employee Form -->
+  <form [formGroup]="searchForm" (ngSubmit)="searchEmployee()">
+    <div class="form-row">
+      <label for="employeeId">Employee ID</label>
+      <input
+        id="employeeId"
+        formControlName="employeeId"
+        placeholder="Enter Employee ID"
+      />
     </div>
+    <button type="submit">Search</button>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+  </form>
+
+  <!-- Update Employee Form (Visible after successful search) -->
+  <div *ngIf="updateForm" class="update-form-container">
+    <h2>Edit Employee Details</h2>
+    <form [formGroup]="updateForm" (ngSubmit)="updateEmployee()">
+      
+      <!-- First Name -->
+      <div class="form-row">
+        <label for="firstName">First Name</label>
+        <input
+          id="firstName"
+          formControlName="firstName"
+          placeholder="Enter First Name"
+        />
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-row">
+        <label for="lastName">Last Name</label>
+        <input
+          id="lastName"
+          formControlName="lastName"
+          placeholder="Enter Last Name"
+        />
+      </div>
+
+      <!-- Department -->
+      <div class="form-row">
+        <label for="department">Department</label>
+        <input
+          id="department"
+          formControlName="department"
+          placeholder="Enter Department"
+        />
+      </div>
+
+      <!-- Role -->
+      <div class="form-row">
+        <label for="role">Role</label>
+        <input
+          id="role"
+          formControlName="role"
+          placeholder="Enter Role"
+        />
+      </div>
+
+      <!-- Email -->
+      <div class="form-row">
+        <label for="emailId">Email</label>
+        <input
+          id="emailId"
+          type="emailId"
+          formControlName="emailId"
+          placeholder="Enter Email"
+        />
+      </div>
+
+      <!-- Mobile Number -->
+      <div class="form-row">
+        <label for="phoneNumber">Mobile Number</label>
+        <input
+          id="phoneNumber"
+          formControlName="phoneNumber"
+          placeholder="Enter Mobile Number"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-row">
+        <button type="submit">Apply</button>
+      </div>
+      
+      <!-- Success Message -->
+      <div *ngIf="successMessage" class="success">
+        {{ successMessage }}
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+      </div>
+    </form>
   </div>
+</div>
