@@ -5,7 +5,7 @@ import { SearchComponent } from './search/search.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,LoginComponent, SearchComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
