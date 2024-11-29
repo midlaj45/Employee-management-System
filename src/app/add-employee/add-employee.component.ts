@@ -44,14 +44,7 @@ export class AddEmployeeComponent implements OnInit {
         // Handle the API response based on ApiResponse format
         this.departments = response.data;  // Assuming response.data contains the departments
       },
-      (error) => {
-        console.error('Error fetching departments:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Failed to load departments. Please try again later.',
-        });
-      }
+     
     );
   }
 
