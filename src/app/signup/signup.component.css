@@ -131,6 +131,7 @@ p.login-text a:hover {
   text-decoration: underline;
 }
 
+
 /* Loading Spinner */
 .loading-spinner {
   display: flex;
@@ -152,3 +153,4 @@ p.login-text a:hover {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+

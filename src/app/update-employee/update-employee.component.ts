@@ -1,106 +1,115 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
+import { EmployeeService } from '../employee.service';
+import { NavbarComponent } from '../shared/navbar/navbar.component'; // Adjust path if necessary
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../shared/navbar/navbar.component';
- 
+
 @Component({
   selector: 'app-update-employee',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,NavbarComponent,],
   templateUrl: './update-employee.component.html',
   styleUrls: ['./update-employee.component.css'],
+  imports: [FormsModule, NavbarComponent, ReactiveFormsModule, CommonModule],
 })
 export class UpdateEmployeeComponent {
   searchForm: FormGroup; // Form to search for the employee
-  updateForm: FormGroup | null = null; // Form to update employee details
+  updateForm: FormGroup; // Form to update employee details
   employeeData: any = null; // Placeholder for employee data
   errorMessage = '';
   successMessage = '';
- 
-  // Simulated Employee Database
-  private employeeDatabase = [
-    {
-      id: '101',
-      firstName: 'John',
-      lastName: 'Doe',
-      department: 'Engineering',
-      role: 'Developer',
-      email: 'john@example.com',
-      mobileNumber: '1234567890'
-    },
-    {
-      id: '102',
-      firstName: 'Jane',
-      lastName: 'Smith',
-      department: 'Finance',
-      role: 'Analyst',
-      email: 'jane@example.com',
-      mobileNumber: '9876543210'
-    },
-    {
-      id: '103',
-      firstName: 'Emily',
-      lastName: 'Johnson',
-      department: 'Sales',
-      role: 'Sales Manager',
-      email: 'emily@example.com',
-      mobileNumber: '4561237890'
-    },
-  ];
- 
-  constructor(private fb: FormBuilder) {
-    // Search Form
+
+  constructor(private fb: FormBuilder, private employeeService: EmployeeService) {
+    // Initialize search form
     this.searchForm = this.fb.group({
       employeeId: ['', Validators.required],
     });
-  }
- 
-  // Search for Employee by ID
-  searchEmployee() {
-    const employeeId = this.searchForm.get('employeeId')?.value;
-    this.employeeData = this.employeeDatabase.find((emp) => emp.id === employeeId);
- 
-    if (this.employeeData) {
-      this.errorMessage = '';
-      this.createUpdateForm(this.employeeData); // Initialize update form with employee data
-    } else {
-      this.errorMessage = 'Employee does not exist.';
-      this.updateForm = null; // Reset the update form
-    }
-  }
- 
-  // Create Update Form with Employee Data
-  createUpdateForm(employee: any) {
+
+    // Initialize update form
     this.updateForm = this.fb.group({
-      firstName: [employee.firstName, Validators.required],
-      lastName: [employee.lastName, Validators.required],
-      department: [employee.department, Validators.required],
-      role: [employee.role, Validators.required],
-      email: [employee.email, [Validators.required, Validators.email]],
-      mobileNumber: [employee.mobileNumber, [Validators.required, Validators.pattern(/^\d{10,15}$/)]],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      department: ['', Validators.required], // Assume department name as string
+      role: ['', Validators.required],
+      emailId: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10,15}$/)]],
     });
   }
- 
+
+  // Search for Employee by ID and populate the form
+  searchEmployee() {
+    const employeeId = this.searchForm.get('employeeId')?.value;
+    this.employeeService.getEmployeeById(employeeId).subscribe(
+      (response) => {
+        if (response && response.data) {
+          this.employeeData = response.data; // Extract the 'data' object
+          this.errorMessage = '';
+          this.populateUpdateForm(this.employeeData); // Populate the form
+        } else {
+          this.errorMessage = 'No data found for the given Employee ID.';
+          this.employeeData = null;
+          this.updateForm.reset();
+        }
+      },
+      (error) => {
+        console.error('Error fetching employee:', error);
+        this.errorMessage = 'Employee does not exist or an error occurred.';
+        this.updateForm.reset();
+      }
+    );
+  }
+
+  // Populate the update form with employee data
+  populateUpdateForm(employee: any) {
+    this.updateForm.setValue({
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      department: employee.department.name, // Use department.name
+      role: employee.role,
+      emailId: employee.emailId, // Match the response key
+      phoneNumber: employee.phoneNumber, // Match the response key
+    });
+
+    // Ensure validations are synchronized
+    Object.keys(this.updateForm.controls).forEach((controlName) => {
+      this.updateForm.controls[controlName].markAsTouched();
+      this.updateForm.controls[controlName].updateValueAndValidity();
+    });
+  }
+
   // Update Employee Data
   updateEmployee() {
-    if (this.updateForm?.valid) {
-      const updatedData = this.updateForm.value;
- 
-      // Update the employee in the database (simulation)
-      const employeeIndex = this.employeeDatabase.findIndex((emp) => emp.id === this.employeeData.id);
-      if (employeeIndex !== -1) {
-        this.employeeDatabase[employeeIndex] = {
-          id: this.employeeData.id,
-          ...updatedData,
-        };
-      }
- 
-      this.successMessage = 'Employee data updated successfully!';
-      this.errorMessage = '';
-      console.log('Updated Employee Database:', this.employeeDatabase); // Log the updated data
-    } else {
-      this.successMessage = '';
-      this.errorMessage = 'Please complete all required fields.';
-    }
+    
+      // Transform the form data if necessary
+      const updatedData = {
+        ...this.updateForm.value,
+        department: { id: this.employeeData.department.id, name: this.updateForm.value.department },
+      };
+  
+      // Debug the payload before sending
+      console.log('Payload sent to API:', updatedData);
+  
+      this.employeeService.updateEmployee(this.employeeData.id, updatedData).subscribe(
+        (response) => {
+          console.log('Update response:', response);
+          this.successMessage = 'Employee data updated successfully!';
+          this.errorMessage = '';
+
+          setTimeout(() => {
+            this.successMessage = '';
+          }, 1000);
+        },
+        (error) => {
+          console.error('Error updating employee:', error);
+          this.successMessage = '';
+          this.errorMessage =
+            error.status === 500
+              ? 'Internal server error. Please try again later or contact support.'
+              : 'Error updating employee data.';
+        }
+      );
+    
   }
-}
+  
+  
+  }
+

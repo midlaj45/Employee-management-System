@@ -13,7 +13,9 @@
           placeholder="Enter your full name"
           name="name"
           [(ngModel)]="name"
+
           required
+
         />
         <div *ngIf="errors['name']" class="error-message">{{ errors['name'] }}</div>
       </div>
@@ -27,7 +29,9 @@
           placeholder="Enter your email"
           name="email"
           [(ngModel)]="email"
+
           required
+
         />
         <div *ngIf="errors['email']" class="error-message">{{ errors['email'] }}</div>
       </div>
@@ -41,7 +45,9 @@
           placeholder="Enter your username"
           name="username"
           [(ngModel)]="username"
+
           required
+
         />
         <div *ngIf="errors['username']" class="error-message">{{ errors['username'] }}</div>
       </div>
@@ -55,7 +61,9 @@
           placeholder="Create a password"
           name="password"
           [(ngModel)]="password"
+
           required
+
         />
         <div *ngIf="errors['password']" class="error-message">{{ errors['password'] }}</div>
       </div>
@@ -69,7 +77,10 @@
           placeholder="Confirm your password"
           name="confirmPassword"
           [(ngModel)]="confirmPassword"
+
           required
+
+
         />
         <div *ngIf="errors['confirmPassword']" class="error-message">
           {{ errors['confirmPassword'] }}
@@ -78,6 +89,7 @@
           {{ errors['passwordMismatch'] }}
         </div>
       </div>
+
 
       <!-- Signup Error -->
       <div *ngIf="errors['signup']" class="error-message">{{ errors['signup'] }}</div>
@@ -90,6 +102,8 @@
       <!-- Submit Button -->
       <button type="submit" class="signup-button" [disabled]="isLoading">Signup</button>
 
+
+     
       <p class="login-text">
         Already have an account? <a (click)="navigateToLogin()">Login here</a>
       </p>

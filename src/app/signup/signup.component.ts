@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { AuthService } from '../auth.service'; // Importing AuthService
 
 @Component({
@@ -9,7 +10,9 @@ import { AuthService } from '../auth.service'; // Importing AuthService
   standalone: true,
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
+
   imports: [CommonModule, FormsModule],  // No need to include LoginComponent here
+
 })
 export class SignupComponent {
   name: string = '';
@@ -18,7 +21,9 @@ export class SignupComponent {
   password: string = '';
   confirmPassword: string = '';
   errors: { [key: string]: string } = {};
+
   isLoading: boolean = false; // State to track loading process
+
 
   constructor(private authService: AuthService, private router: Router) {} // Injecting AuthService
 
@@ -32,6 +37,8 @@ export class SignupComponent {
     if (!this.confirmPassword) this.errors['confirmPassword'] = 'Confirm Password is required';
     if (this.password && this.confirmPassword && this.password !== this.confirmPassword) {
       this.errors['passwordMismatch'] = 'Passwords do not match';
+
+   
     }
 
     return Object.keys(this.errors).length === 0; // Return true if no errors
