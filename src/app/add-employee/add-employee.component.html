@@ -39,9 +39,11 @@
         <label for="department">Department *</label>
         <select id="department" formControlName="department">
           <option value="" disabled>Select Department</option>
+
           <option *ngFor="let dept of departments" [value]="dept.id">
             {{ dept.name }}
           </option>
+
         </select>
         <div *ngIf="isFieldInvalid('department')" class="error">
           Department is required.
@@ -54,8 +56,10 @@
           <option value="" disabled>Select Role</option>
           <option value="Developer">Developer</option>
           <option value="Tester">Tester</option>
+
           <option value="Trainee-Hr">Trainee-Hr</option>
           <option value="Marketing manager">Marketing Manager</option>
+
         </select>
         <div *ngIf="isFieldInvalid('role')" class="error">
           Role is required.

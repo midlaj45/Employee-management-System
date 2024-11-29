@@ -11,19 +11,20 @@ import { UpdateEmployeeComponent } from './update-employee/update-employee.compo
 import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 import { PerformanceReportComponent } from './performance-report/performance-report.component';
 import { SignupComponent } from './signup/signup.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent }, 
+  { path: 'login', component: LoginComponent ,}, 
   { path: 'search', component: SearchComponent },
   { path: 'working-hours', component: WorkingHoursComponent },
   { path: 'add-employee', component: AddEmployeeComponent },
-  {path: 'dashboard', component: DashboardComponent },
+  {path: 'dashboard', component: DashboardComponent ,canActivate: [AuthGuard],},
   
   { path: 'delete-employee', component: DeleteEmployeeComponent },
   { path: 'update-employee', component: UpdateEmployeeComponent },
   { path: 'view-employee', component: ViewEmployeeComponent },
   { path: 'performance-report', component: PerformanceReportComponent },
-  { path: 'signup', component: SignupComponent },
+  { path: 'signup', component: SignupComponent ,},
 
 
 

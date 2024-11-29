@@ -1,3 +1,4 @@
+
 import { Department } from './department';
 
 export class Employee {
@@ -9,3 +10,4 @@ export class Employee {
   department?: Department;  // Change from string to Department object
   role?: string;
 }
+

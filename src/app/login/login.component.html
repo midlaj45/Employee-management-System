@@ -32,11 +32,23 @@
         <div *ngIf="errors['password']" class="error-message">{{ errors['password'] }}</div>
       </div>
 
+      <!-- Error Message Display -->
+      <div *ngIf="errors['login']" class="error-message">
+        {{ errors['login'] }}
+      </div>
+
+
+
       <!-- Forgot Password Link -->
       <a href="#" class="forgot-password">Forgot Password?</a>
 
       <!-- Login Button -->
-      <button type="submit" class="login-button">Login</button>
+
+      <button type="submit" class="login-button" [disabled]="isLoading">
+        <span *ngIf="isLoading">Logging in...</span>
+        <span *ngIf="!isLoading">Login</span>
+      </button>
+
     </form>
   </div>
 </div>

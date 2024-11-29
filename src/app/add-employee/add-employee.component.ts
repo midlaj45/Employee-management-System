@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { EmployeeService } from '../employee.service';
+
 import { DepartmentService } from '../department.service';  // Import DepartmentService
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -16,7 +17,9 @@ import Swal from 'sweetalert2';
 })
 export class AddEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
+
   departments: any[] = [];  // Array to store departments
+
   submitted = false;
   successMessage: string | null = null;
   errorMessage: string | null = null;
@@ -36,6 +39,7 @@ export class AddEmployeeComponent implements OnInit {
       phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10,15}$/)]],
     });
   }
+
 
   ngOnInit(): void {
     // Fetch all departments when the component is initialized
@@ -57,6 +61,8 @@ export class AddEmployeeComponent implements OnInit {
     console.log('Form submitted!');
     if (this.employeeForm.valid) {
       const employeeData = this.employeeForm.value;
+
+
       
       // Ensure department is selected and set the department ID
       const department = { id: employeeData.department };
@@ -75,10 +81,12 @@ export class AddEmployeeComponent implements OnInit {
             });
             this.router.navigate(['/dashboard']);  // Redirect to the employee list page
           }
+
         },
         (error) => {
           console.error('Error:', error);
           this.errorMessage = 'Failed to add employee. Please try again later.';
+
           Swal.fire({
             icon: 'error',
             title: 'Error',
@@ -90,4 +98,5 @@ export class AddEmployeeComponent implements OnInit {
       );
     }
   }
+
 }
