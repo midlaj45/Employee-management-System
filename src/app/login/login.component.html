@@ -3,18 +3,48 @@
   <div class="login-container">
     <button class="close-button">×</button>
     <h2>Login Form</h2>
-    <!-- ngSubmit directive binds to the onLogin method -->
     <form (ngSubmit)="onLogin()">
+      <!-- Username Field -->
       <div>
         <label for="username">Admin username</label>
-        <input type="text" id="username" placeholder="Enter username" name="username" [(ngModel)]="username" required />
+        <input
+          type="text"
+          id="username"
+          placeholder="Enter username"
+          name="username"
+          [(ngModel)]="username"
+          required
+        />
+        <div *ngIf="errors['username']" class="error-message">{{ errors['username'] }}</div>
       </div>
+
+      <!-- Password Field -->
       <div>
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter password" name="password" [(ngModel)]="password" required />
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter password"
+          name="password"
+          [(ngModel)]="password"
+          required
+        />
+        <div *ngIf="errors['password']" class="error-message">{{ errors['password'] }}</div>
       </div>
+
+      <!-- Error Message Display -->
+      <div *ngIf="errors['login']" class="error-message">
+        {{ errors['login'] }}
+      </div>
+
+      <!-- Forgot Password Link -->
       <a href="#" class="forgot-password">Forgot Password?</a>
-      <button type="submit" class="login-button">Login</button>
+
+      <!-- Login Button -->
+      <button type="submit" class="login-button" [disabled]="isLoading">
+        <span *ngIf="isLoading">Logging in...</span>
+        <span *ngIf="!isLoading">Login</span>
+      </button>
     </form>
   </div>
 </div>
