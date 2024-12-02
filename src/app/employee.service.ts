@@ -2,22 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-
-// Define the structure of the API response
-interface ApiResponse<T> {
-  data: T;
-  message: string;
-  statusCode: number;
-}
-
+ 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class EmployeeService {
-  private apiUrl = 'http://localhost:8080/api/employees';
-
+  private apiUrl = 'http://localhost:8080/api/employees';  // Backend URL
+ 
   constructor(private http: HttpClient) {}
-
+ 
+  // Method to create a new employee
 
   createEmployee(employee: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, employee);
@@ -37,6 +31,7 @@ export class EmployeeService {
   getEmployeeById(employeeId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${employeeId}`);
   }
-
-
+ 
 }
+ 
+ 
