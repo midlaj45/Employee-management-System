@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="employee-container">
   <h1>Employee Table</h1>
-  
+ 
   <!-- Employee Table -->
   <table class="employee-table">
     <thead>
@@ -16,15 +16,29 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let employee of employees">
+      <tr *ngFor="let employee of pagedEmployees()">
         <td>{{ employee.id }}</td>
         <td>{{ employee.firstName }}</td>
         <td>{{ employee.lastName }}</td>
-        <td>{{  employee.department?.name}}</td>
+        <td>{{ employee.department.name }}</td>
         <td>{{ employee.role }}</td>
-        <td>{{ employee.emailId }}</td> <!-- Use emailId as per backend response -->
-        <td>{{ employee.phoneNumber }}</td> <!-- Use phoneNumber as per backend response -->
+        <td>{{ employee.emailId }}</td>
+        <td>{{ employee.phoneNumber }}</td>
       </tr>
     </tbody>
   </table>
+ 
+  <!-- Pagination Controls -->
+  <div class="pagination-controls">
+    <button (click)="setPage(p - 1)" [disabled]="p <= 1">Previous</button>
+    <span>Page {{ p }} of {{ totalPages() }}</span>
+    <button (click)="setPage(p + 1)" [disabled]="p >= totalPages()">Next</button>
+  </div>
+ 
+  <!-- Display message if no employees are found -->
+  <div *ngIf="filteredEmployees.length === 0 && searchValue" class="no-results">
+    <p>No employees found matching your search criteria.</p>
+  </div>
 </div>
+ 
+ 
