@@ -33,4 +33,5 @@ export class DashboardComponent {
   {
     this.router.navigate(['/working-hours']);
   }
+  
 }

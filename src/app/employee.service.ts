@@ -31,6 +31,13 @@ export class EmployeeService {
   getEmployeeById(employeeId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${employeeId}`);
   }
+  submitWorkingHours(csvRecord: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/save`, csvRecord, {
+      headers: {
+        'Content-Type': 'text/plain', // Send as plain text
+      },
+    });
+  }
  
 }
  
