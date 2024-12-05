@@ -45,57 +45,57 @@ body {
   }
   
   .btn-primary {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    border: none;
+    background-image: linear-gradient(to right, #4fbed1, #2575fc);
+   border: none;
   }
   
   .btn-primary:hover {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-image: linear-gradient(to right, #4fbed1, #2575fc);
   }
   
   .btn-danger {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-image: linear-gradient(to right, #4fbed1, #2575fc);
     border: none;
   }
   
   .btn-danger:hover {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-image: linear-gradient(to right, #4fbed1, #2575fc);
   }
   
   .btn-warning {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-image: linear-gradient(to right, #4fbed1, #2575fc);
     border: none;
   }
   
   .btn-warning:hover {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-image: linear-gradient(to right, #4fbed1, #2575fc);
   }
   
   .btn-success {
-   background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-image: linear-gradient(to right, #4fbed1, #2575fc);
     border: none;
   }
   
   .btn-success:hover {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-image: linear-gradient(to right, #4fbed1, #2575fc);
   }
   
   .btn-info {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-image: linear-gradient(to right, #4fbed1, #2575fc);
     border: none;
   }
   
   .btn-info:hover {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-image: linear-gradient(to right, #4fbed1, #2575fc);
   }
   
   .btn-secondary {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-image: linear-gradient(to right, #4fbed1, #2575fc);
     border: none;
   }
   
   .btn-secondary:hover {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-image: linear-gradient(to right, #4fbed1, #2575fc);
   }
   
   /* Button Container Styling */

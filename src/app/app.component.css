@@ -1,0 +1,59 @@
+/* Basic layout setup */
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  /* Adjust layout when sidebar is excluded (for login/signup pages) */
+  .no-sidebar .content-area {
+    margin: 0;  /* Remove space for sidebar */
+    padding: 0; /* Remove padding */
+    height: 100vh;  /* Ensure content takes full height */
+  }
+  
+  /* Regular content area with sidebar */
+  .content-area {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 300px;  /* Space for sidebar */
+    height: 100vh; /* Ensure content area takes up full height */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+  }
+  
+  /* Adjust content area when sidebar is not present (for login/signup pages) */
+  .content-area-without-sidebar {
+    margin-left: 0; /* Remove margin for no-sidebar layout */
+    height: 100vh;  /* Full height for content */
+    overflow-y: auto; /* Allow scrolling */
+  }
+  
+  /* Navbar fixed at top */
+  .app-layout app-navbar {
+    position: fixed;
+    /* Optional: Add background color */
+    z-index: 10; /* Ensure navbar stays on top */
+   /* Optional: Add some padding */
+  }
+  
+  /* Footer fixed at bottom */
+  .app-layout app-footer {
+    position:sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* Optional: Add background color */
+    z-index: 5; /* Ensure footer stays below navbar */
+
+  }
+  
+  /* Sidebar fixed on the left side */
+  .app-layout app-sidebar {
+    position: fixed;
+    /* Adjust as needed for navbar height */
+   /* Prevent overlap with footer */
+   
+    z-index: 5; /* Ensure sidebar is below navbar and footer */
+    overflow-y: auto; /* Allow scrolling in sidebar if needed */
+  }
+  

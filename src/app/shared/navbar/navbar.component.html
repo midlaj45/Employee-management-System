@@ -1,18 +1,19 @@
-<!-- navbar.component.html -->
 <nav class="navbar">
-    <div class="navbar-container">
-      <!-- EmployeeConnect branding on the left -->
+  <div class="navbar-container">
+    <!-- Branding container -->
+    <div class="navbar-brand-container">
+      <img src="../../../assets/loginemployee.png" alt="App Icon" class="app-icon" />
       <a href="/" class="navbar-brand">EmployeeConnect</a>
-  
-      <!-- Navbar links -->
-      <ul class="navbar-links">
-        <li><a href="/dashboard">Dashboard</a></li>
-        
-        <li><a href="/performance-report">Performance Rating</a></li>
-        <li><a (click)="navigateToSearch()">Search</a></li>
-        <!-- Sign Out Link -->
-        <li><a href="/signout" class="signout-link">Sign Out</a></li>
-      </ul>
     </div>
-  </nav>
-  
+
+    <!-- Navbar links -->
+    <div class="navbar-link-container">
+    <ul class="navbar-links">
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a (click)="navigateToPerformance()">Performance Rating</a></li>
+      <li><a (click)="navigateToSearch()">Search</a></li>
+      <li><a (click)="logout()" class="signout-link">Sign Out</a></li>
+    </ul>
+    </div>
+  </div>
+</nav>

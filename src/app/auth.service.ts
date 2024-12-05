@@ -70,4 +70,8 @@ export class AuthService {
     return !!token;  // Returns true if the token exists, false otherwise
   }
 
+  logoutUser(): Observable<string> {
+    return this.http.post<string>(`${this.apiUrl}/auth/signout`, {}, { responseType: 'text' as 'json' });
+  }
+
 }

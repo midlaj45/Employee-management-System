@@ -1,3 +1,15 @@
-<!-- app.component.html -->
-  <router-outlet></router-outlet>
-  
+<div class="app-layout" [ngClass]="{'no-sidebar': isExcludedRoute()}">
+  <!-- Navbar (fixed at top) -->
+  <app-navbar *ngIf="!isExcludedRoute()"></app-navbar>
+
+  <!-- Sidebar (fixed on the left) -->
+  <app-sidebar *ngIf="!isExcludedRoute()"></app-sidebar>
+
+  <!-- Content Area -->
+  <div class="content-area" [ngClass]="{'content-area-without-sidebar': isExcludedRoute()}">
+    <router-outlet></router-outlet>
+  </div>
+
+  <!-- Footer (fixed at bottom) -->
+  <app-footer *ngIf="!isExcludedRoute()"></app-footer>
+</div>
