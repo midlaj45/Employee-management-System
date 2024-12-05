@@ -112,7 +112,7 @@ export class WorkingHoursComponent {
       // Use the service to submit the working hours
       this.employeeService.submitWorkingHours(csvRecord).subscribe({
         next: (response: any) => {
-          alert('Working hours submitted successfully!');
+          alert(response.message);
           console.log(response);
         },
         
