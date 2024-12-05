@@ -1,54 +1,68 @@
 <div class="login-page">
-  <h1 class="app-title">EmployeeConnect</h1>
   <div class="login-container">
-    <button class="close-button">×</button>
-    <h2>Login Form</h2>
-    <form (ngSubmit)="onLogin()">
-      <!-- Username Field -->
-      <div>
-        <label for="username">Admin username</label>
-        <input
-          type="text"
-          id="username"
-          placeholder="Enter username"
-          name="username"
-          [(ngModel)]="username"
-          required
-        />
-        <div *ngIf="errors['username']" class="error-message">{{ errors['username'] }}</div>
+    <!-- Left Container for Login Form -->
+    <div class="left-container">
+      <button class="close-button">×</button>
+      <h2 class="signin-title" >SignIn</h2>
+      <form (ngSubmit)="onLogin()">
+        <!-- Username Field -->
+        <div>
+          <label for="username">Admin/Hr username</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter username"
+            name="username"
+            [(ngModel)]="username"
+            required
+          />
+          <div *ngIf="errors['username']" class="error-message">{{ errors['username'] }}</div>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <label for="password">Password</label>
+          <div class="password-container">
+            <input
+              type="{{ passwordVisible ? 'text' : 'password' }}"
+              id="password"
+              placeholder="Enter password"
+              name="password"
+              [(ngModel)]="password"
+              required
+            />
+            <button type="button" (click)="togglePasswordVisibility()" class="eye-icon">
+              <i class="fas" [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+            </button>
+          </div>
+          <div *ngIf="errors['password']" class="error-message">{{ errors['password'] }}</div>
+        </div>
+
+        <!-- Error Message Display -->
+        <div *ngIf="errors['login']" class="error-message">
+          {{ errors['login'] }}
+        </div>
+
+        <!-- Forgot Password Link -->
+        <a href="#" class="forgot-password">Forgot Password?</a>
+
+        <!-- Login Button -->
+        <button type="submit" class="login-button" [disabled]="isLoading">
+          <span *ngIf="isLoading">Logging in...</span>
+          <span *ngIf="!isLoading">Login</span>
+        </button>
+        <p class="login-text">
+          Not yet registered? <a (click)="navigateToSignup()" class="login-link">Signup here</a>
+        </p>
+      </form>
+    </div>
+
+    <!-- Right Container for EmployeeConnect Text -->
+    <div class="right-container">
+      <div class="app-icon-container">
+      <img src="../../assets/employee2.jpg" alt="App Icon" class="app-icon" />
+      <h1 class="app-title">EmployeeConnect</h1>
       </div>
-
-      <!-- Password Field -->
-      <div>
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Enter password"
-          name="password"
-          [(ngModel)]="password"
-          required
-        />
-        <div *ngIf="errors['password']" class="error-message">{{ errors['password'] }}</div>
-      </div>
-
-      <!-- Error Message Display -->
-      <div *ngIf="errors['login']" class="error-message">
-        {{ errors['login'] }}
-      </div>
-
-
-
-      <!-- Forgot Password Link -->
-      <a href="#" class="forgot-password">Forgot Password?</a>
-
-      <!-- Login Button -->
-
-      <button type="submit" class="login-button" [disabled]="isLoading">
-        <span *ngIf="isLoading">Logging in...</span>
-        <span *ngIf="!isLoading">Login</span>
-      </button>
-
-    </form>
+    </div>
   </div>
 </div>

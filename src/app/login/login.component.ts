@@ -15,6 +15,13 @@ import { AuthService } from '../auth.service'; // Import AuthService
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  passwordVisible: boolean = false;
+
+  // Method to toggle the password visibility
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
   errors: { [key: string]: string } = {};
   isLoading: boolean = false;  // Flag to show loading state
 
@@ -28,7 +35,10 @@ export class LoginComponent {
 
     return Object.keys(this.errors).length === 0;  // Return true if no errors
   }
-
+  navigateToSignup()
+  {
+    this.router.navigate(['signup']);
+  }
   onLogin() {
     if (this.validateFields()) {
        // Show loading indicator while API call is in progress

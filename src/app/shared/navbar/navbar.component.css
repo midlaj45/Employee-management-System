@@ -1,79 +1,87 @@
-/* Navbar background and size adjustments */
+/* Navbar */
 .navbar {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    padding: 15px 30px;  /* Increased padding for a bigger navbar */
+    background: linear-gradient(to right, #4fbed1, #2575fc);
+    padding: 15px 30px; /* Padding inside the navbar */
     color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adding shadow for depth */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding-right:500px;
+    width:90%;
 }
 
-/* Container to keep navbar content aligned */
+/* Navbar container */
 .navbar-container {
     display: flex;
-    justify-content: space-between;  /* Ensures that brand and links are on opposite sides */
-    align-items: center;
-    max-width: 1200px;  /* Limit the width of the navbar */
-    margin: 0 auto;     /* Center the navbar */
+    justify-content: space-between; /* Pushes brand and links to opposite sides */
+    align-items: center; /* Vertically aligns content */
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
 }
 
-/* Branding link (EmployeeConnect) */
+/* Branding (App Icon + Text) */
+.navbar-brand-container {
+    display: flex;
+    margin-left:1px
+    /* Aligns icon and text */
+}
+
 .navbar-brand {
-    font-size: 1.8rem;  /* Increased font size for brand */
+    font-size: 1.8rem;
     text-decoration: none;
     color: white;
-    margin-right: 1000px;
-    margin-right: auto;  /* Ensures brand stays on the leftmost side */
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
 }
 
-/* Navbar links container (horizontal) */
+.app-icon {
+    width: 50px;
+    height: 50px;
+}
+
+/* Navbar links (move to right) */
 .navbar-links {
     list-style-type: none;
     display: flex;
     margin: 0;
     padding: 0;
-}
-
-/* Individual link items */
-.navbar-links li {
-    margin-left: 30px; /* Increased space between links */
+    gap: 50px; 
+     width:1000px;/* Space between each link */
 }
 
 /* Styling for the links */
 .navbar-links a {
     text-decoration: none;
     color: white;
-    font-size: 1.2rem; /* Slightly bigger font for the links */
+    font-size: 1.2rem;
     padding: 8px 12px;
-    border-radius: 4px; /* Optional: Adding rounded corners */
-}
+    border-radius: 4px;
+}  
 
-/* Sign Out Link Styling */
+/* Buttons: Signout & Hover Effects */
 .signout-link {
-    background-color: #6735dc; /* Red color for Sign Out */
-    padding: 8px 15px;
-    border-radius: 5px;
     font-weight: bold;
+    border-radius: 5px;
 }
 
+.navbar-links a:hover,
 .signout-link:hover {
-    background-color: #6735dc; /* Darker red on hover */
+    background: linear-gradient(to right, #4fbed1, #2575fc);
     color: white;
 }
 
-/* Hover effect for links */
-.navbar-links a:hover {
-    background-color: #0056b3;  /* Slight background change on hover */
-    color: #f8f9fa;
-}
-
-/* Optional: making navbar links responsive for mobile */
+/* Media query for responsiveness */
 @media screen and (max-width: 768px) {
     .navbar-links {
-        flex-direction: column; /* Stack links vertically */
+        flex-direction: column; /* Stack links vertically on small screens */
         align-items: center;
     }
 
     .navbar-links li {
-        margin-left: 0; /* Remove left margin */
-        margin-top: 10px; /* Add top margin for vertical stacking */
+        margin-top: 10px;
     }
+}
+.navbar-link-container
+{
+    padding-left: 700px;
 }

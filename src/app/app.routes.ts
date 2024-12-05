@@ -19,8 +19,6 @@ export const routes: Routes = [
   { path: 'working-hours', component: WorkingHoursComponent },
   { path: 'add-employee', component: AddEmployeeComponent },
   {path: 'dashboard', component: DashboardComponent ,canActivate: [AuthGuard],},
-
-  
   { path: 'delete-employee', component: DeleteEmployeeComponent },
   { path: 'update-employee', component: UpdateEmployeeComponent },
   { path: 'view-employee', component: ViewEmployeeComponent },

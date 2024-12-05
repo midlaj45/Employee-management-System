@@ -1,50 +1,75 @@
-body {
+/* General Body Styles */
+/* body {
   margin: 0;
+  padding: 0;
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background */
-}
-html, body {
-  height: 100%; /* Full height for the page */
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-}
+  background: linear-gradient(to right, #4fbed1, #2575fc); /* Gradient background */
+ 
+/* *{
+  margin: 0;
+  padding: 0;max-height: 100vh;
+  border: 1px solid red;
+  background-color: #2575fc;
+} */
 
-
+/* Login Page Container */
 .login-page {
-  min-height: 100vh; /* Full viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* Login Container */
+.login-container {
+  display: flex;
+  background-color: white; /* White background */
+  width: 60%;
+  max-width: 80%; /* Limit max width */
+  height: 80vh;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 100px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Left Container (Login Form) */
+.left-container {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient colors */
-  color: white; /* Default text color for page */
+  align-items: center;
+  padding: 5px;
+  box-sizing: border-box;
 }
+
+/* Right Container (EmployeeConnect Text) */
+.right-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #4fbed1, #2575fc); /* Gradient background */
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
 .app-title {
-  margin-bottom: 30px;
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
   text-align: center;
-  font-family: 'Arial', sans-serif;
-  color: white; /* Text color for the title */
-  margin-top:40px;
+  color: white;
+  margin-top: 40px;
 }
 
-.login-container {
-  background-color: rgb(255, 255, 255);
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  width: 450px;
-  height:350px;
-  text-align: center;
-  position: relative;
-  margin-top: 50px;
-}
-
+/* Close Button */
 .close-button {
   position: absolute;
   top: 10px;
@@ -55,12 +80,14 @@ html, body {
   cursor: pointer;
 }
 
+/* Title for the Form */
 h2 {
   margin-bottom: 20px;
   font-size: 24px;
   color: #333;
 }
 
+/* Form Labels and Inputs */
 form div {
   margin-bottom: 15px;
   text-align: left;
@@ -73,14 +100,26 @@ label {
   color: #555;
 }
 
-input {
-  width: 100%;
-  padding: 10px;
+/* Increased width for inputs */
+.login-container input {
+/* Ensure it spans the container's width */
+  /* Set a max width for larger screens */
+  width:400px;
+  padding: 15px;
   font-size: 14px;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
 
+/* Focused input state */
+.login-container input:focus {
+ 
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Forgot Password Link */
 .forgot-password {
   display: block;
   margin-bottom: 20px;
@@ -94,10 +133,12 @@ input {
   text-decoration: underline;
 }
 
+/* Login Button */
 .login-button {
   width: 100%;
-  padding: 10px;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
+  max-width: 1000px; /* Same max width as the input fields */
+  padding: 15px; /* Increased padding */
+  background: linear-gradient(to right, #4fbed1, #2575fc);
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -108,9 +149,17 @@ input {
 }
 
 .login-button:hover {
-  background: linear-gradient(to right, #2575fc, #6a11cb);
+  background: linear-gradient(to right, #4fbed1, #2575fc);
 }
 
+/* Error Message */
+.error-message {
+  color: #ff4d4d;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Signup Link */
 .signup-text {
   margin-top: 20px;
   font-size: 14px;
@@ -125,9 +174,74 @@ input {
 .signup-text a:hover {
   text-decoration: underline;
 }
-/* Error Message */
-.error-message {
-  color: #ff4d4d;
-  font-size: 12px;
-  margin-top: 5px;
+p.login-text {
+  text-align: center;
+  font-size: 16px;
+  color: #555555;
 }
+
+p.login-text a.login-link {
+  color: #007bff; /* Blue color */
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+p.login-text a.login-link:hover {
+  text-decoration: underline;
+}
+
+h2.signin-title {
+  font-size: 30px;
+  text-align: center;
+  background: linear-gradient(to right, #4fbed1, #2575fc); /* Gradient applied */
+  -webkit-background-clip: text; /* Clip the gradient to the text */
+  -webkit-text-fill-color: transparent; /* Make the text transparent to show the gradient */
+  font-weight: bold;
+  margin-top:10px;
+  padding:25px;
+}
+
+/* Password container to align the input and eye icon */
+
+/* Password container to align the input and eye icon */
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+input[type="password"],
+input[type="text"] {
+  padding-right: 40px; /* Space for the eye icon */
+  font-size: 14px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #7e7a7a; /* Blue color for the icon */
+}
+
+.eye-icon i {
+  font-size: 18px;
+}
+
+.app-icon {
+  width: 200px; /* Adjust size as needed */
+  height: 200px; /* Maintain aspect ratio */
+  display: block;
+  margin-bottom: 80px; /* Ensure it’s not inline */
+   /* Center it within its container */
+}
+
+.app-icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
