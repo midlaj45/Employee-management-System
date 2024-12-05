@@ -36,7 +36,7 @@ export class AddEmployeeComponent implements OnInit {
       department: ['', Validators.required],
       role: ['', Validators.required],
       emailId: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10,15}$/)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
     });
   }
 
