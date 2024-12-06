@@ -57,6 +57,10 @@ export class AuthService {
     return !!this.getToken();
   }
 
+  logoutUser(): Observable<string> {
+    return this.http.post<string>(`${this.apiUrl}/auth/signout`, {}, { responseType: 'text' as 'json' });
+  }
+
   // Get authorization header with token for API calls
   getAuthHeaders(): HttpHeaders {
     const token = this.getToken();

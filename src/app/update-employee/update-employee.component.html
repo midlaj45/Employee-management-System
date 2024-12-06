@@ -18,8 +18,13 @@
     <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
   </form>
 
-  <!-- Update Employee Form (Visible after successful search) -->
-  <div *ngIf="updateForm" class="update-form-container">
+  <!-- Error message when employee is deleted -->
+  <div *ngIf="employeeData && employeeData.isDeleted" class="error">
+    This employee has been deleted and cannot be updated.
+  </div>
+
+  <!-- Update Employee Form (Visible after successful search, but not deleted) -->
+  <div *ngIf="updateForm && employeeData && !employeeData.isDeleted" class="update-form-container">
     <h2>Edit Employee Details</h2>
     <form [formGroup]="updateForm" (ngSubmit)="updateEmployee()">
       
@@ -68,7 +73,7 @@
         <label for="emailId">Email</label>
         <input
           id="emailId"
-          type="emailId"
+          type="email"
           formControlName="emailId"
           placeholder="Enter Email"
         />
