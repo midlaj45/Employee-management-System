@@ -1,10 +1,9 @@
-<app-navbar></app-navbar>
 <div class="form-container">
   <h1>Delete Employee</h1>
-  <p>Enter the Employee ID to delete the employee.</p>
+  <p>Enter the Employee ID to fetch and delete the employee.</p>
 
-  <!-- Delete Form -->
-  <form [formGroup]="deleteForm" (ngSubmit)="onDelete()">
+  <!-- Employee ID Form -->
+  <form [formGroup]="deleteForm" (ngSubmit)="onFetchEmployeeDetails()">
     <div class="form-row">
       <label for="employeeId">Employee ID</label>
       <input
@@ -13,13 +12,33 @@
         placeholder="Enter Employee ID"
       />
     </div>
-
-    <button type="submit">Delete</button>
+    <button type="submit">Fetch Details</button>
   </form>
 
   <!-- Error Message -->
   <div *ngIf="errorMessage" class="error">
     {{ errorMessage }}
+  </div>
+
+  <!-- Employee Details Card (Displays after submitting ID) -->
+  <div *ngIf="employeeDetails" class="employee-details-card">
+    <div class="profile-container">
+      <div class="profile-picture">
+        <!-- Placeholder for profile picture, replace with actual image later -->
+        <img src="../../assets/employee.jpg" alt="Profile Picture">
+      </div>
+      <div class="employee-text">
+        <h2>Employee Details</h2>
+        <p><strong>Employee ID:</strong> {{ employeeDetails.id }}</p>
+        <p><strong>First Name:</strong> {{ employeeDetails.firstName }}</p>
+        <p><strong>Last Name:</strong> {{ employeeDetails.lastName }}</p>
+        <p><strong>Email:</strong> {{ employeeDetails.emailId }}</p>
+        <p><strong>Phone Number:</strong> {{ employeeDetails.phoneNumber }}</p>
+        <p><strong>Department:</strong> {{ employeeDetails.department.name }}</p>
+        <p><strong>Role:</strong> {{ employeeDetails.role }}</p>
+      </div>
+    </div>
+    <button class="delete-button" (click)="onDelete()">Delete Employee</button>
   </div>
 
   <!-- Success Message -->

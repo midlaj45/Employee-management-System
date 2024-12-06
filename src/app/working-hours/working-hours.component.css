@@ -1,5 +1,20 @@
+/* Container for the entire page */
+.container {
+  max-width: 1800px;
+  height: auto;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 100px;
+  border: 2px solid #f5f6f7; /* Visible border */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}/* Light background */
+/* Subtle shadow for depth */
+ 
+ 
+ 
 .working-hours-page {
-  margin: 20px;
   font-family: Arial, sans-serif;
 }
  
@@ -47,13 +62,13 @@ button {
   padding: 8px 15px;
   border: none;
   border-radius: 5px;
-  background-color: #2575fc;
+  background: linear-gradient(to right, #4fbed1, #2575fc);
   color: white;
   cursor: pointer;
 }
  
 button:hover {
-  background-color: #0056b3;
+  background: linear-gradient(to right, #4fbed1, #2575fc);
 }
  
 .form-actions {

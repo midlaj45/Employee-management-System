@@ -1,30 +1,62 @@
-<app-navbar></app-navbar>
 <div class="employee-container">
   <h1>Employee Table</h1>
   
-  <!-- Employee Table -->
-  <table class="employee-table">
-    <thead>
-      <tr>
-        <th>Employee ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Department</th>
-        <th>Role</th>
-        <th>Email</th>
-        <th>Phone Number</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let employee of employees">
-        <td>{{ employee.id }}</td>
-        <td>{{ employee.firstName }}</td>
-        <td>{{ employee.lastName }}</td>
-        <td>{{  employee.department?.name}}</td>
-        <td>{{ employee.role }}</td>
-        <td>{{ employee.emailId }}</td> <!-- Use emailId as per backend response -->
-        <td>{{ employee.phoneNumber }}</td> <!-- Use phoneNumber as per backend response -->
-      </tr>
-    </tbody>
-  </table>
+  <!-- Flex container for table and details -->
+  <div class="employee-layout">
+    <!-- Employee Table -->
+    <div class="employee-table-container">
+      <table class="employee-table">
+        <thead>
+          <tr>
+            <th>Employee ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of pagedEmployees()">
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.firstName }}</td>
+            <td>{{ employee.lastName }}</td>
+            <td>
+              <button class="view-button" (click)="viewEmployeeDetails(employee)">View More</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Pagination Controls -->
+      <div class="pagination-controls">
+        <button class="page-button" (click)="setPage(p - 1)" [disabled]="p <= 1">Previous</button>
+        <span>Page {{ p }} of {{ totalPages() }}</span>
+        <button class="page-button" (click)="setPage(p + 1)" [disabled]="p >= totalPages()">Next</button>
+      </div>
+    </div>
+
+    <!-- Employee Details Card -->
+    <div *ngIf="selectedEmployee" class="employee-card">
+      <h2>Employee Details</h2>
+      <div class="employee-details">
+        <div class="profile-picture-placeholder">
+          <img src="../../assets/employee.jpg" alt="Profile Picture" class="profile-picture" />
+        </div>
+        <div class="details">
+          <p><strong>Employee ID:</strong> {{ selectedEmployee.id }}</p>
+          <p><strong>First Name:</strong> {{ selectedEmployee.firstName }}</p>
+          <p><strong>Last Name:</strong> {{ selectedEmployee.lastName }}</p>
+          <p><strong>Email:</strong> {{ selectedEmployee.emailId }}</p>
+          <p><strong>Phone Number:</strong> {{ selectedEmployee.phoneNumber }}</p>
+          <p><strong>Department:</strong> {{ selectedEmployee.department.name }}</p>
+          <p><strong>Role:</strong> {{ selectedEmployee.role }}</p>
+        </div>
+      </div>
+      <button class="close-button" (click)="closeEmployeeDetails()">Close</button>
+    </div>
+  </div>
+
+  <!-- Display message if no employees are found -->
+  <div *ngIf="filteredEmployees.length === 0 && searchValue" class="no-results">
+    <p>No employees found matching your search criteria.</p>
+  </div>
 </div>

@@ -1,22 +1,25 @@
-<app-navbar></app-navbar>
-
 <div class="form-container">
   <h1>Update Employee</h1>
 
-  <!-- Search Employee Form -->
-  <form [formGroup]="searchForm" (ngSubmit)="searchEmployee()">
-    <div class="form-row">
-      <label for="employeeId">Employee ID</label>
-      <input
-        id="employeeId"
-        formControlName="employeeId"
-        placeholder="Enter Employee ID"
-      />
+  <div class="form-content">
+    <!-- Search Employee Form -->
+    <div class="search-section">
+      <h2>Search Employee</h2>
+      <form [formGroup]="searchForm" (ngSubmit)="searchEmployee()">
+        <div class="form-row">
+          <label for="employeeId">Employee ID</label>
+          <input
+            id="employeeId"
+            formControlName="employeeId"
+            placeholder="Enter Employee ID"
+          />
+        </div>
+        <button type="submit">Search</button>
+        <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+        <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+      </form>
     </div>
-    <button type="submit">Search</button>
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-    <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
-  </form>
+
 
   <!-- Error message when employee is deleted -->
   <div *ngIf="employeeData && employeeData.isDeleted" class="error">
@@ -24,7 +27,7 @@
   </div>
 
   <!-- Update Employee Form (Visible after successful search, but not deleted) -->
-  <div *ngIf="updateForm && employeeData && !employeeData.isDeleted" class="update-form-container">
+  <div *ngIf="updateForm && employeeData && !employeeData.isDeleted" class="update-section">
     <h2>Edit Employee Details</h2>
     <form [formGroup]="updateForm" (ngSubmit)="updateEmployee()">
       
@@ -38,71 +41,75 @@
         />
       </div>
 
-      <!-- Last Name -->
-      <div class="form-row">
-        <label for="lastName">Last Name</label>
-        <input
-          id="lastName"
-          formControlName="lastName"
-          placeholder="Enter Last Name"
-        />
-      </div>
+    
 
-      <!-- Department -->
-      <div class="form-row">
-        <label for="department">Department</label>
-        <input
-          id="department"
-          formControlName="department"
-          placeholder="Enter Department"
-        />
-      </div>
+        <!-- Last Name -->
+        <div class="form-row">
+          <label for="lastName">Last Name</label>
+          <input
+            id="lastName"
+            formControlName="lastName"
+            placeholder="Enter Last Name"
+          />
+        </div>
 
-      <!-- Role -->
-      <div class="form-row">
-        <label for="role">Role</label>
-        <input
-          id="role"
-          formControlName="role"
-          placeholder="Enter Role"
-        />
-      </div>
+        <!-- Department -->
+        <div class="form-row">
+          <label for="department">Department</label>
+          <input
+            id="department"
+            formControlName="department"
+            placeholder="Enter Department"
+          />
+        </div>
 
-      <!-- Email -->
-      <div class="form-row">
-        <label for="emailId">Email</label>
-        <input
-          id="emailId"
-          type="email"
-          formControlName="emailId"
-          placeholder="Enter Email"
-        />
-      </div>
+        <!-- Role -->
+        <div class="form-row">
+          <label for="role">Role</label>
+          <input
+            id="role"
+            formControlName="role"
+            placeholder="Enter Role"
+          />
+        </div>
 
-      <!-- Mobile Number -->
-      <div class="form-row">
-        <label for="phoneNumber">Mobile Number</label>
-        <input
-          id="phoneNumber"
-          formControlName="phoneNumber"
-          placeholder="Enter Mobile Number"
-        />
-      </div>
 
-      <!-- Submit Button -->
-      <div class="form-row">
-        <button type="submit">Apply</button>
-      </div>
-      
-      <!-- Success Message -->
-      <div *ngIf="successMessage" class="success">
-        {{ successMessage }}
-      </div>
+        <!-- Email -->
+        <div class="form-row">
+          <label for="emailId">Email</label>
+          <input
+            id="emailId"
+            type="email"
+            formControlName="emailId"
+            placeholder="Enter Email"
+          />
+        </div>
 
-      <!-- Error Message -->
-      <div *ngIf="errorMessage" class="error">
-        {{ errorMessage }}
-      </div>
-    </form>
+
+        <!-- Mobile Number -->
+        <div class="form-row">
+          <label for="phoneNumber">Mobile Number</label>
+          <input
+            id="phoneNumber"
+            formControlName="phoneNumber"
+            placeholder="Enter Mobile Number"
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-row">
+          <button type="submit">Apply Changes</button>
+        </div>
+        
+        <!-- Success and Error Messages -->
+        <div *ngIf="successMessage" class="success">
+          {{ successMessage }}
+        </div>
+
+        <div *ngIf="errorMessage" class="error">
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
   </div>
 </div>

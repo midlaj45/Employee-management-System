@@ -1,28 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
-import { EmployeeService } from '../employee.service'; // Import EmployeeService
+import { EmployeeService } from '../employee.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-employee',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent],
   templateUrl: './view-employee.component.html',
   styleUrls: ['./view-employee.component.css']
 })
 export class ViewEmployeeComponent implements OnInit {
-  employees: any[] = [];  // Array to hold employee data
+  employees: any[] = [];
+  filteredEmployees: any[] = [];
+  searchType: string = 'name';
+  searchValue: string = '';
   errorMessage: string | null = null;
+  p: number = 1;
+  pageSize: number = 5;
+  selectedEmployee: any = null; // Holds the details of the employee to be viewed
 
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
-    // Fetch all employees when the component is initialized
     this.employeeService.getAllEmployees().subscribe(
       (response) => {
-        // Assuming the API response contains the employee data under the 'data' property
         this.employees = response.data;
+        this.filteredEmployees = this.employees;
       },
       (error) => {
         console.error('Error fetching employees:', error);
@@ -37,7 +43,30 @@ export class ViewEmployeeComponent implements OnInit {
       }
     );
   }
-}
 
- 
- 
+  totalPages(): number {
+    return Math.ceil(this.filteredEmployees.length / this.pageSize);
+  }
+
+  pagedEmployees(): any[] {
+    const startIndex = (this.p - 1) * this.pageSize;
+    const endIndex = this.p * this.pageSize;
+    return this.filteredEmployees.slice(startIndex, endIndex);
+  }
+
+  setPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.p = page;
+    }
+  }
+
+  // Function to show employee details
+  viewEmployeeDetails(employee: any): void {
+    this.selectedEmployee = employee;
+  }
+
+  // Function to close the employee details card
+  closeEmployeeDetails(): void {
+    this.selectedEmployee = null;
+  }
+}

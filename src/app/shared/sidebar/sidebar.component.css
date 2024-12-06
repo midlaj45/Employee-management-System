@@ -1,0 +1,58 @@
+/* Sidebar styles */
+.sidebar {
+    background-color: #fcfeff;  /* Almost white background */
+    width: 250px;
+    height: 100vh;  /* Full height of the page */
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    margin-top:82px;
+  }
+  
+  /* Sidebar links container */
+  .sidebar-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Individual sidebar link */
+  .sidebar-link  {
+    display: block;
+    text-decoration: none;
+    color: #333;  /* Dark text color for the links */
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;  /* Line separator between links */
+    transition: background-color 0.3s ease;
+    background-image: linear-gradient(to right, #02b6d6, #022f7c); /* Gradient background */
+    -webkit-background-clip: text;
+    color: transparent;  /* Make text color transparent */
+   /* Smooth transition effect for hover */
+     /* Smooth hover effect */
+  }
+  
+  /* Hover effect for the links */
+  .sidebar-link:hover .sidebar-icon{
+    background-color: #dfe6e9;  /* Light gray background on hover */
+    color: #2575fc;  /* Change text color on hover */
+  }
+  .main-layout {
+    display: flex;
+    margin-left: 1000px;  /* Offset the content to the right when sidebar is present */
+    transition: margin-left 0.3s ease; /* Smooth transition when sidebar appears */
+  }
+
+  .sidebar-icon {
+    width: 30px; /* Set the size of the icon */
+    height: 30px; /* Set the size of the icon */
+    margin-left: 8px;
+    margin-right: 10px; /* Add space between the text and the icon */
+  }
+  .setting-links {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom:300px;;
+  }

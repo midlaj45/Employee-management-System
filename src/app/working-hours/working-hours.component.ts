@@ -1,3 +1,4 @@
+ 
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -17,9 +18,7 @@ export class WorkingHoursComponent {
     {
       employeeId: '',
       firstName: '',
-      lastName: '',  
-    
-     
+      lastName: '',   
       tasksAssigned: 0,
       tasksCompleted: 0,
       tasksCompletedOnTime: 0,
@@ -107,13 +106,13 @@ constructor(
  
       this.workingHoursData.forEach((row) => {
         const line = `${row.employeeId},${row.firstName} ${row.lastName},${this.date},${row.tasksAssigned},${row.tasksCompleted},${row.tasksCompletedOnTime}`;
-        csvRecord += line +'\n' ;
+        csvRecord += line+'\n';
       });
  
       // Use the service to submit the working hours
       this.employeeService.submitWorkingHours(csvRecord).subscribe({
         next: (response: any) => {
-          alert('Working hours submitted successfully!');
+          alert(response.message);
           console.log(response);
         },
         

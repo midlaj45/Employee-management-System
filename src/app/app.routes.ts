@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 
+import { SearchComponent} from './search/search.component';
+
 import { FormsModule } from '@angular/forms';
 import { WorkingHoursComponent } from './working-hours/working-hours.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
@@ -20,7 +22,6 @@ export const routes: Routes = [
   { path: 'working-hours', component: WorkingHoursComponent },
   { path: 'add-employee', component: AddEmployeeComponent },
   {path: 'dashboard', component: DashboardComponent ,canActivate: [AuthGuard],},
-  
   { path: 'delete-employee', component: DeleteEmployeeComponent },
   { path: 'update-employee', component: UpdateEmployeeComponent },
   { path: 'view-employee', component: ViewEmployeeComponent },
