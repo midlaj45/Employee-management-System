@@ -43,6 +43,13 @@ export class UpdateEmployeeComponent {
         if (response && response.data) {
           this.employeeData = response.data; // Extract the 'data' object
           this.errorMessage = '';
+            // Check if the employee is marked as deleted
+              if (this.employeeData.isDeleted) {
+                this.errorMessage = 'This employee has been deleted and cannot be updated.';
+                this.employeeData = null;
+                this.updateForm.reset();
+                return; // Prevent form population if deleted
+              }
           this.populateUpdateForm(this.employeeData); // Populate the form
         } else {
           this.errorMessage = 'No data found for the given Employee ID.';

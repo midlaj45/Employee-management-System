@@ -1,90 +1,91 @@
-
-<app-navbar></app-navbar>
- 
 <div class="navbar">
-    <button (click)="showAllReports()">All Reports</button>
-    <button (click)="showSearchEmployee()">Search Employee</button>
-  </div>
-  
-  <div class="content">
-    <!-- All Reports Section -->
-    <div *ngIf="isAllReports">
-      <h2>Employee Performance Reports</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Department</th>
-            <th>Performance Rating</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let employee of paginatedEmployees">
-            <td>{{ employee.id }}</td>
-            <td>{{ employee.name }}</td>
-            <td>{{ employee.role }}</td>
-            <td>{{ employee.department }}</td>
-            <td>{{ employee.performanceRating }}</td>
-          </tr>
-        </tbody>
-      </table>
-  
-      <!-- Pagination Controls -->
-      <div class="pagination">
-        <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
-      </div>
-    </div>
-  
-    <!-- Search Employee Section -->
-    <div *ngIf="isSearchEmployee" class="search-section">
-      <h3>Search Employee</h3>
-      <div class="search-input-container">
-        <input type="text" [(ngModel)]="searchId" placeholder="Enter Employee ID" />
-        <button (click)="searchEmployee()">Search</button>
-      </div>
-  
-      <!-- Transitioned Employee Info Section -->
-      <div *ngIf="selectedEmployee" class="employee-info">
-        <div class="employee-left">
-          <h3>Employee Details</h3>
-          <p><strong>ID:</strong> {{ selectedEmployee.id }}</p>
-          <p><strong>Name:</strong> {{ selectedEmployee.name }}</p>
-          <p><strong>Role:</strong> {{ selectedEmployee.role }}</p>
-          <p><strong>Department:</strong> {{ selectedEmployee.department }}</p>
-          <p><strong>Performance Rating:</strong> {{ selectedEmployee.performanceRating }}</p>
-        </div>
-  
-        <!-- Vertical Divider -->
-        <div class="divider"></div>
-  
-        <!-- Color Cycle Section (Right side) -->
-        <div class="employee-right">
-          <div class="circle-container">
-            <svg width="100" height="100" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="45" fill="none" stroke="#e6e6e6" stroke-width="10"></circle>
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                fill="none"
-                stroke-width="10"
-                [attr.stroke]="getCircleColor(selectedEmployee.performanceRating)"
-                [attr.stroke-dasharray]="getCirclePercentage(selectedEmployee.performanceRating) + ', 283'"
-              ></circle>
-            </svg>
-          </div>
-        </div>
-      </div>
-  
-      <!-- No employee found message -->
-      <div *ngIf="!selectedEmployee && searchId">
-        <p style="color: red;font-size: larger;font-weight: bolder;">No employee found with ID: {{ searchId }}</p>
-      </div>
+  <button (click)="viewAllReports()">All Reports</button>
+  <button (click)="showSearchEmployee()">Search Employee</button>
+  <button (click)="showPerformanceGraph()">Performance Graph</button>
+</div>
+
+<div class="content">
+  <!-- All Reports Section -->
+  <div *ngIf="showTable">
+    <h2>Employee Performance Reports</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Department</th>
+          <th>Performance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of performanceData">
+          <td>{{ employee.id }}</td>
+          <td>{{ employeeDetails[employee.id]?.name || 'Not Available' }}</td>
+          <td>{{ employeeDetails[employee.id]?.role || 'Not Available' }}</td>
+          <td>{{ employeeDetails[employee.id]?.department || 'Not Available' }}</td>
+          <td>{{ employee.performance }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
     </div>
   </div>
+
+<!-- Search Employee Section -->
+<div *ngIf="showEmployeeSearchForm">
+  <h3>Enter Employee ID:</h3>
+  <input [(ngModel)]="searchId" placeholder="Employee ID" />
+  <button (click)="searchEmployee()">Search</button>
+  <button (click)="closeSearchForm()">Close</button>
+</div>
+
+<!-- Display Employee Details -->
+  <div *ngIf="searchedEmployee">
   
- 
+    <!-- Employee Details -->
+    
+      <h4>Employee Details</h4>
+      <p><strong>Name:</strong> {{ searchedEmployee.name }}</p>
+      <p><strong>Department:</strong> {{ searchedEmployee.department }}</p>
+      <p><strong>Role:</strong> {{ searchedEmployee.role }}</p>
+      <p><strong>Performance:</strong> {{ searchedEmployee.performance }}</p>
+    
+  </div>
+
+  <!-- Performance Chart Section below employee info -->
+<div *ngIf="searchedEmployee && searchedEmployee.performance" class="performance-chart">
+  <div class="circle-container">
+    <svg width="100" height="100" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" fill="none" stroke="#e6e6e6" stroke-width="10"></circle>
+      <circle
+        cx="50"
+        cy="50"
+        r="45"
+        fill="none"
+        stroke-width="10"
+        [attr.stroke]="getCircleColor(searchedEmployee.performance)"
+        [attr.stroke-dasharray]="getCirclePercentage(searchedEmployee.performance) + ', 283'"
+      ></circle>
+    </svg>
+  </div>
+</div>
+
+<!-- Performance Graph Section -->
+<div *ngIf="showGraph">
+  <canvas id="performanceChart" width="200" height="200"></canvas>
+</div>
+
+
+
+  <!-- Divider between sections -->
+  <div class="divider"></div>
+
+  <!-- Performance Graph Section -->
+  
+</div>

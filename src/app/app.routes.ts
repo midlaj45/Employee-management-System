@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+
 import { SearchComponent} from './search/search.component';
+
 import { FormsModule } from '@angular/forms';
 import { WorkingHoursComponent } from './working-hours/working-hours.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
@@ -12,6 +14,7 @@ import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 import { PerformanceReportComponent } from './performance-report/performance-report.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthGuard } from './guards/auth.guard';
+import { SearchComponent } from './search/search.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent ,}, 
