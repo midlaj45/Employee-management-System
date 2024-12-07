@@ -1,118 +1,247 @@
-import { Component } from '@angular/core';
- 
+import { Component, OnInit } from '@angular/core';
+import { PerformanceReportService } from '../performance.service';
+import { EmployeeService } from '../employee.service';
 import { CommonModule } from '@angular/common';
- 
+import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NavbarComponent } from '../shared/navbar/navbar.component';
- 
+import Chart from 'chart.js/auto'; // Import Chart.js
+
 @Component({
- 
   selector: 'app-performance-report',
- 
   standalone: true,
- 
+  imports: [CommonModule, FormsModule],
   templateUrl: './performance-report.component.html',
- 
   styleUrls: ['./performance-report.component.css'],
- 
-  imports: [CommonModule, FormsModule,NavbarComponent,],
- 
 })
- 
-export class PerformanceReportComponent {
-  isAllReports: boolean = true;
-  isSearchEmployee: boolean = false;
-  searchId: string = '';
-  selectedEmployee: any = null;
+export class PerformanceReportComponent implements OnInit {
+  performanceData: { id: string; performance: string }[] | null = null;
+  employeeDetails: { [key: string]: { name: string; department: string; role: string } } = {};
+  isLoading: boolean = true;
+  error: string | null = null;
+  searchedEmployee: any = null;
+  showTable: boolean = true;  // Define the showTable property here
+  showEmployeeSearchForm: boolean = false; // Flag to show the search form
+  searchId: string = ''; 
   currentPage: number = 1;
-  itemsPerPage: number = 10;
-  isSearchPressed: boolean = false; // Flag to track if search button was pressed
+  totalPages: number = 10; 
+  showGraph: boolean = false;
  
-  // Dummy Employee Data
-  employees: any[] = [
-    { id: '1', name: 'John Doe', role: 'Developer', department: 'IT', performanceRating: 9.2 },
-    { id: '2', name: 'Jane Smith', role: 'Designer', department: 'Creative', performanceRating: 7.8 },
-    { id: '3', name: 'Alice Brown', role: 'Manager', department: 'HR', performanceRating: 6.5 },
-    { id: '4', name: 'Bob White', role: 'Engineer', department: 'Engineering', performanceRating: 4.5 },
-    { id: '5', name: 'Charlie Black', role: 'Analyst', department: 'Finance', performanceRating: 8.1 },
-    { id: '6', name: 'Emma Green', role: 'Project Manager', department: 'Operations', performanceRating: 7.3 },
-    { id: '7', name: 'Liam Red', role: 'Sales Executive', department: 'Sales', performanceRating: 9.5 },
-    { id: '8', name: 'Olivia White', role: 'Marketing Manager', department: 'Marketing', performanceRating: 6.9 },
-    { id: '9', name: 'Sophia Blue', role: 'Product Lead', department: 'Product', performanceRating: 5.8 },
-    { id: '10', name: 'Mason Yellow', role: 'Software Engineer', department: 'Development', performanceRating: 3.4 },
-    { id: '11', name: 'Alice Green', role: 'Data Scientist', department: 'AI', performanceRating: 8.5 },
-    { id: '12', name: 'Peter Blue', role: 'UX Designer', department: 'Creative', performanceRating: 7.0 },
-    { id: '13', name: 'Sara Black', role: 'HR Manager', department: 'HR', performanceRating: 6.2 },
-    { id: '14', name: 'Mike White', role: 'DevOps Engineer', department: 'Engineering', performanceRating: 5.0 }
-  ];
- 
-  get paginatedEmployees(): any[] {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.employees.slice(startIndex, startIndex + this.itemsPerPage);
+  constructor(
+    private performanceReportService: PerformanceReportService,
+    private employeeService: EmployeeService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this.fetchPerformanceData();
   }
- 
-  get totalPages(): number {
-    return Math.ceil(this.employees.length / this.itemsPerPage);
+
+  fetchPerformanceData(): void {
+    this.performanceReportService.getPerformanceData().subscribe(
+      (data: string) => {
+        this.isLoading = false;
+        this.performanceData = data
+          .split('\n')
+          .map((line: string) => line.split(','))
+          .filter((parts: string[]) => parts.length === 2)
+          .map(([id, performance]) => ({
+            id: id.trim(),
+            performance: parseFloat(performance.trim()).toFixed(2),
+          }));
+
+        this.performanceData.forEach((record) => {
+          this.fetchEmployeeDetails(record.id);
+        });
+      },
+      (err) => {
+        this.isLoading = false;
+        this.error = 'Failed to fetch performance data.';
+        console.error('Error fetching performance data', err);
+      }
+    );
   }
- 
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
+  
+  // New method to show the performance graph
+  showPerformanceGraph(): void {
+    this.showGraph = !this.showGraph;  // Toggle graph visibility
+    this.showEmployeeSearchForm = false; 
+    this.showTable = false;
+    this.searchedEmployee = null; 
+    console.log('Button clicked! showGraph:', this.showGraph);  // Check toggle
+  
+    if (this.showGraph) {
+      // Add a small delay to allow DOM to update before rendering the chart
+      setTimeout(() => {
+        this.renderPerformanceGraph(); // Render the chart
+      }, 3);
     }
   }
- 
+  
+  
+renderPerformanceGraph(): void {
+  console.log('Rendering performance graph...');
+  
+  const ctx = (document.getElementById('performanceChart') as HTMLCanvasElement)?.getContext('2d');
+  if (ctx && this.performanceData) {
+    console.log('Rendering chart...');
+    
+    const employeeIds = this.performanceData.map(record => record.id);
+    const performances = this.performanceData.map(record => parseFloat(record.performance));
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: employeeIds,  // X-axis labels (Employee IDs)
+        datasets: [{
+          label: 'Performance Score',
+          data: performances,  // Y-axis data (Performance scores)
+          backgroundColor: '#4caf50',
+          borderColor: '#388e3c',
+          borderWidth: 1,
+          barThickness: 30,
+        }],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Employee ID',
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Performance Score',
+            },
+            min: 0,
+            max: 100,
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,  // Hide the legend
+          },
+        },
+      },
+    });
+  } else {
+    console.error('Chart context not found or performance data is missing.');
+  }
+}
+  
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
   }
- 
-  showAllReports(): void {
-    this.isAllReports = true;
-    this.isSearchEmployee = false;
-    this.selectedEmployee = null;
-    this.searchId = '';
-    this.isSearchPressed = false;  // Reset the search flag
-    this.currentPage = 1; // Reset to the first page
-  }
- 
-  showSearchEmployee(): void {
-    this.isAllReports = false;
-    this.isSearchEmployee = true;
-    this.selectedEmployee = null; // Reset the selected employee
-    this.searchId = '';
-    this.isSearchPressed = false; // Reset the search flag
-    // Reset the animation when switching to the Search Employee section
-    setTimeout(() => {
-      document.querySelector('.search-section')?.classList.add('active');
-    }, 100);
-    setTimeout(() => {
-      document.querySelector('.employee-info')?.classList.remove('active');
-    }, 500); // Ensure employee info is hidden initially
-  }
- 
-  searchEmployee(): void {
-    this.isSearchPressed = true; // Set search flag to true when search is pressed
-    this.selectedEmployee = this.employees.find((emp) => emp.id === this.searchId) || null;
-    // If an employee is found, trigger the transition for employee info
-    if (this.selectedEmployee) {
-      setTimeout(() => {
-        document.querySelector('.employee-info')?.classList.add('active');
-      }, 200); // Add a slight delay to trigger the transition
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
     }
   }
- 
-  // Get circle percentage based on rating
-  getCirclePercentage(rating: number): number {
-    return (rating / 10) * 283; // Percentage in terms of SVG circle circumference
+
+  fetchEmployeeDetails(employeeId: string): void {
+    this.employeeService.getEmployeeById(+employeeId).subscribe(
+      (response) => {
+        if (response && response.data) {
+          const employee = response.data;
+          this.employeeDetails[employeeId] = {
+            name: `${employee.firstName} ${employee.lastName}`,
+            department: employee.department?.name || 'Not Available',
+            role: employee.role || 'Not Available',
+          };
+        }
+      },
+      (err) => {
+        console.error('Error fetching employee details for ID:', employeeId, err);
+      }
+    );
   }
- 
-  // Get color based on performance rating
-  getCircleColor(rating: number): string {
-    if (rating >= 9) return 'green';
-    if (rating >= 7) return 'yellow';
-    if (rating >= 5) return 'orange';
+
+  viewAllReports(): void {
+    this.showTable = true;  // Show the performance report table again
+    this.showEmployeeSearchForm = false; // Flag to show the search form
+    this.showGraph =false;
+    this.searchedEmployee = null; 
+    this.fetchPerformanceData();
+  }
+  
+  getCircleColor(performance: number): string {
+    if (performance > 80) return 'green';
+    if (performance > 50) return 'yellow';
     return 'red';
   }
+  
+  getCirclePercentage(performance: number): number {
+    return (performance / 100) * 283;  // 283 is the maximum circumference of the circle
+  }
+
+  generatePerformanceChart(performanceScore: string): void {
+    const ctx = (document.getElementById('performance-chart') as HTMLCanvasElement)?.getContext('2d');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Performance Score', 'Remaining'],
+          datasets: [
+            {
+              data: [parseFloat(performanceScore), 100 - parseFloat(performanceScore)],
+              backgroundColor: ['#4caf50', '#e6e6e6'],
+              borderWidth: 1,
+            },
+          ],
+        },
+      });
+    }
+  }
+
+  // Show the employee search form
+  showSearchEmployee(): void {
+    this.showTable = false;
+    this.showGraph =false;
+    this.showEmployeeSearchForm = !this.showEmployeeSearchForm;
+  }
+
+  // Search for an employee by ID
+  searchEmployee(): void {
+    if (this.searchId) {
+      const performance = this.performanceData?.find(
+        (record) => record.id === this.searchId
+      )?.performance;
+
+      if (!performance) {
+        alert('Performance data not available for this employee.');
+        return;
+      }
+
+      this.employeeService.getEmployeeById(+this.searchId).subscribe(
+        (response) => {
+          if (response && response.data) {
+            const employee = response.data;
+            this.searchedEmployee = {
+              id: employee.id,
+              name: `${employee.firstName} ${employee.lastName}`,
+              department: employee.department?.name || 'Not Available',
+              role: employee.role || 'Not Available',
+              performance: performance || 'Not Available',
+            };
+            this.generatePerformanceChart(this.searchedEmployee.performance);
+          } else {
+            alert('Employee not found.');
+          }
+        },
+        (err) => {
+          console.error('Error fetching employee details for search:', err);
+          alert('Failed to fetch employee details.');
+        }
+      );
+    }
+  }
+
+  closeSearchForm(): void {
+    this.showEmployeeSearchForm = false;
+  }
 }
- 

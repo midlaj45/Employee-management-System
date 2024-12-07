@@ -8,9 +8,9 @@ import { AuthService } from '../../auth.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-
+ 
   constructor(private authService: AuthService, private router: Router) {}
-
+ 
  
   navigateToSearch()
   {
@@ -20,7 +20,7 @@ export class NavbarComponent {
   {
     this.router.navigate(['/performance-report']);
   }
-
+ 
   logout(): void {
     this.authService.logoutUser().subscribe({
       next: (response) => {
@@ -35,3 +35,5 @@ export class NavbarComponent {
     });
   }
 }
+ 
+ 

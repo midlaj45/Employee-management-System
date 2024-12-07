@@ -44,6 +44,7 @@ export class UpdateEmployeeComponent {
       (response) => {
         if (response && response.data) {
           this.employeeData = response.data; // Extract the 'data' object
+
           this.errorMessage = ''; // Clear any previous errors
           this.populateUpdateForm(this.employeeData); // Populate the form with data
   
@@ -55,6 +56,7 @@ export class UpdateEmployeeComponent {
             timer: 1500,
             showConfirmButton: false,
           });
+
         } else {
           // Show error message using SweetAlert if no employee found
           Swal.fire({

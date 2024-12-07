@@ -1,4 +1,4 @@
-
+ 
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -18,15 +18,15 @@ export class WorkingHoursComponent {
   workingHoursData = [
     {
       employeeId: '',
-      firstName: '', 
+      firstName: '',
       lastName: '',   
       tasksAssigned: 0,
       tasksCompleted: 0,
       tasksCompletedOnTime: 0,
     },
   ];
- // Inject EmployeeService
- constructor(
+// Inject EmployeeService
+constructor(
   private employeeService: EmployeeService,
   private http: HttpClient // Inject HttpClient
 ) {}
@@ -36,14 +36,14 @@ export class WorkingHoursComponent {
       employeeId: '',
       firstName: '',
       lastName: '',
-
+ 
      
       tasksAssigned: 0,
       tasksCompleted: 0,
       tasksCompletedOnTime: 0,
     });
   }
-
+ 
   // Remove a row from the table (ensure at least one row remains)
   removeRow(index: number) {
     if (this.workingHoursData.length > 1) {
@@ -52,12 +52,12 @@ export class WorkingHoursComponent {
       alert('At least one row must remain.');
     }
   }
-
+ 
   // Fetch employee name by ID (separating firstName and lastName)
   fetchEmployeeName(index: number) {
     const employeeId = this.workingHoursData[index].employeeId;
     const employeeIdNumber = Number(employeeId);
-
+ 
     if (!isNaN(employeeIdNumber)) {
       this.employeeService.getEmployeeById(employeeIdNumber).subscribe({
         next: (response) => {
@@ -84,10 +84,10 @@ export class WorkingHoursComponent {
       this.workingHoursData[index].lastName = ''; // Clear if invalid ID
     }
   }
-
+ 
   // Submit the form data
   
-
+ 
   // Export data to a local file in CSV format
   onSubmit() {
     if (
@@ -104,12 +104,12 @@ export class WorkingHoursComponent {
     ) {
       // Create a CSV formatted record string
       let csvRecord = '';
-  
+
       this.workingHoursData.forEach((row) => {
         const line = `${row.employeeId},${row.firstName} ${row.lastName},${this.date},${row.tasksAssigned},${row.tasksCompleted},${row.tasksCompletedOnTime}`;
         csvRecord += line + '\n';
       });
-  
+
       // Use the service to submit the working hours
       this.employeeService.submitWorkingHours(csvRecord).subscribe({
         next: (response: any) => {
@@ -138,3 +138,5 @@ export class WorkingHoursComponent {
     }
   }
 }
+ 
+ 

@@ -9,5 +9,6 @@ export class Employee {
   phoneNumber?: string;
   department?: Department;  // Change from string to Department object
   role?: string;
+   
 }
 

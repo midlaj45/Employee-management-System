@@ -7,57 +7,57 @@
   margin-top: 100px;
   border: 2px solid #f5f6f7; /* Visible border */
   border-radius: 8px; /* Rounded corners */
-  background-color: #f9f9f9; 
+  background-color: #f9f9f9;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }/* Light background */
- /* Subtle shadow for depth */
-
-
-
+/* Subtle shadow for depth */
+ 
+ 
+ 
 .working-hours-page {
   font-family: Arial, sans-serif;
 }
-
+ 
 h2 {
   text-align: center;
   margin-bottom: 20px;
 }
-
+ 
 .form-header {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
 }
-
+ 
 label {
   font-weight: bold;
   margin-right: 10px;
 }
-
+ 
 input {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
-
+ 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
-
+ 
 thead th {
   background-color: #f2f2f2;
 }
-
+ 
 th,
 td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
-
+ 
 button {
   padding: 8px 15px;
   border: none;
@@ -66,16 +66,17 @@ button {
   color: white;
   cursor: pointer;
 }
-
+ 
 button:hover {
   background: linear-gradient(to right, #4fbed1, #2575fc);
 }
-
+ 
 .form-actions {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
+
 .form-drop
 {
   width:150px;
@@ -88,3 +89,4 @@ button:hover {
   border-color: #d0d3d8;
  
 }
+

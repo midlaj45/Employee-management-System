@@ -1,13 +1,13 @@
 <div class="container">
   <div class="working-hours-page">
     <h2>Task Updation</h2>
-
+ 
     <!-- Date Picker -->
     <div class="form-header">
       <label for="date">Date:</label>
       <input type="date" id="date" [(ngModel)]="date" name="date" required />
     </div>
-
+ 
     <!-- Table for Employee Details -->
     <table>
       <thead>
@@ -30,7 +30,7 @@
               [(ngModel)]="row.employeeId"
               name="employeeId-{{ i }}"
               required
-              (blur)="fetchEmployeeName(i)" 
+              (blur)="fetchEmployeeName(i)"
             />
           </td>
           <td>
@@ -99,7 +99,7 @@
         </tr>
       </tbody>
     </table>
-
+ 
     <form (ngSubmit)="onSubmit()">
       <div class="form-actions">
         <button type="button" (click)="addRow()">Add Row</button>
@@ -108,3 +108,5 @@
     </form>
   </div>
 </div>
+ 
+ 

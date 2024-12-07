@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+ 
  
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ export class EmployeeService {
   constructor(private http: HttpClient) {}
  
   // Method to create a new employee
+
 
   createEmployee(formData: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, formData);
@@ -40,5 +41,4 @@ export class EmployeeService {
   }
  
 }
- 
  
