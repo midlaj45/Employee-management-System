@@ -4,7 +4,9 @@ import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import Swal from 'sweetalert2';
- 
+import { HttpClient } from '@angular/common/http';
+
+
 @Component({
   selector: 'app-search',
   standalone: true,
@@ -13,8 +15,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
- 
-  searchType: string = '';
+
+  searchType: string = ''; 
   employees: any[] = [];
   filteredEmployees: any[] = [];
   paginatedEmployees: any[] = [];
@@ -25,9 +27,12 @@ export class SearchComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalPages: number = 1;
- 
-  constructor(private employeeService: EmployeeService) {}
- 
+  imageUrl: string | null = null;
+
+  constructor(private employeeService: EmployeeService, private http: HttpClient) {}
+  
+
+  private apiUrl = 'http://localhost:8080/api/photos'; 
   ngOnInit(): void {
     this.employeeService.getAllEmployees().subscribe(
       (response) => {
@@ -51,7 +56,7 @@ export class SearchComponent implements OnInit {
       }
     );
   }
- 
+
   onSearch() {
     if (this.searchType === 'name') {
       this.filteredEmployees = this.employees.filter(
@@ -81,34 +86,53 @@ export class SearchComponent implements OnInit {
     this.currentPage = 1;
     this.updatePagination();
   }
- 
+
   updatePagination() {
     this.totalPages = Math.ceil(this.filteredEmployees.length / this.itemsPerPage);
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     this.paginatedEmployees = this.filteredEmployees.slice(startIndex, startIndex + this.itemsPerPage);
   }
- 
+
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.updatePagination();
     }
   }
- 
+
   previousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.updatePagination();
     }
   }
- 
+
   onViewMore(employee: any) {
     this.selectedEmployee = employee;
+    this.getImageUrl(employee.profilePicture);
   }
- 
+
   closeEmployeeDetails() {
     this.selectedEmployee = null;
   }
+
+  getImageUrl(profilePicturePath: string): void {
+    const url = `${this.apiUrl}?profilePicturePath=${encodeURIComponent(profilePicturePath)}`;
+    this.http.get(url, { responseType: 'blob' }).subscribe(
+      (imageBlob: Blob) => {
+        // Create a URL for the blob to display it in the template
+        this.imageUrl = URL.createObjectURL(imageBlob);
+      },
+      (error) => {
+        console.error('Error fetching image:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load image. Please try again later.',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    );
+  }
 }
- 
- 
