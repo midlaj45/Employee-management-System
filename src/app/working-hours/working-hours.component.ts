@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { EmployeeService } from '../employee.service';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-working-hours',
   templateUrl: './working-hours.component.html',
@@ -91,7 +92,7 @@ export class WorkingHoursComponent {
   onSubmit() {
     if (
       this.date &&
-      this.workingHoursData.every(
+      this.workingHoursData.some(
         (row) =>
           row.employeeId &&
           row.firstName &&  // Check if firstName is available
@@ -103,20 +104,37 @@ export class WorkingHoursComponent {
     ) {
       // Create a CSV formatted record string
       let csvRecord = '';
-
+  
       this.workingHoursData.forEach((row) => {
         const line = `${row.employeeId},${row.firstName} ${row.lastName},${this.date},${row.tasksAssigned},${row.tasksCompleted},${row.tasksCompletedOnTime}`;
-        csvRecord += line+'\n';
+        csvRecord += line + '\n';
       });
-
+  
       // Use the service to submit the working hours
       this.employeeService.submitWorkingHours(csvRecord).subscribe({
         next: (response: any) => {
-          alert(response.message);
+          Swal.fire({
+            icon: 'success',
+            title: 'Data Submitted Successfully',
+            text: response.message || 'Your working hours have been successfully submitted.',
+          });
           console.log(response);
         },
-        
+        error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Submission Failed',
+            text: 'An error occurred while submitting the data. Please try again.',
+          });
+          console.error('Error:', err);
+        }
       });
-    } 
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Incomplete Data',
+        text: 'Please fill in all required fields before submitting.',
+      });
+    }
   }
 }

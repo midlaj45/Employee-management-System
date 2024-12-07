@@ -13,8 +13,8 @@ export class EmployeeService {
  
   // Method to create a new employee
 
-  createEmployee(employee: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, employee);
+  createEmployee(formData: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, formData);
   }
   getAllEmployees(): Observable<any> {
     return this.http.get<any>(this.apiUrl);  // Make GET request to fetch employee data

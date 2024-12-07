@@ -4,6 +4,7 @@ import { EmployeeService } from '../employee.service';
 import { NavbarComponent } from '../shared/navbar/navbar.component'; // Adjust path if necessary
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-employee',
@@ -38,25 +39,54 @@ export class UpdateEmployeeComponent {
   // Search for Employee by ID and populate the form
   searchEmployee() {
     const employeeId = this.searchForm.get('employeeId')?.value;
+  
     this.employeeService.getEmployeeById(employeeId).subscribe(
       (response) => {
         if (response && response.data) {
           this.employeeData = response.data; // Extract the 'data' object
-          this.errorMessage = '';
-          this.populateUpdateForm(this.employeeData); // Populate the form
+          this.errorMessage = ''; // Clear any previous errors
+          this.populateUpdateForm(this.employeeData); // Populate the form with data
+  
+          // Show success message using SweetAlert
+          Swal.fire({
+            icon: 'success',
+            title: 'Employee Found',
+            text: 'Employee details fetched successfully!',
+            timer: 1500,
+            showConfirmButton: false,
+          });
         } else {
-          this.errorMessage = 'No data found for the given Employee ID.';
+          // Show error message using SweetAlert if no employee found
+          Swal.fire({
+            icon: 'error',
+            title: 'No Data Found',
+            text: 'No data found for the given Employee ID.',
+            timer: 1500,
+            showConfirmButton: false,
+          });
+  
           this.employeeData = null;
           this.updateForm.reset();
         }
       },
       (error) => {
         console.error('Error fetching employee:', error);
-        this.errorMessage = 'Employee does not exist or an error occurred.';
+  
+        // Show error message using SweetAlert on error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Employee does not exist or an error occurred.',
+          timer: 2000,
+          showConfirmButton: false,
+        });
+  
+        this.employeeData = null;
         this.updateForm.reset();
       }
     );
   }
+  
 
   // Populate the update form with employee data
   populateUpdateForm(employee: any) {
@@ -77,38 +107,47 @@ export class UpdateEmployeeComponent {
   }
 
   // Update Employee Data
-  updateEmployee() {
-    
-      // Transform the form data if necessary
-      const updatedData = {
-        ...this.updateForm.value,
-        department: { id: this.employeeData.department.id, name: this.updateForm.value.department },
-      };
-  
-      // Debug the payload before sending
-      console.log('Payload sent to API:', updatedData);
-  
-      this.employeeService.updateEmployee(this.employeeData.id, updatedData).subscribe(
-        (response) => {
-          console.log('Update response:', response);
-          this.successMessage = 'Employee data updated successfully!';
-          this.errorMessage = '';
+  // Update Employee Data
+updateEmployee() {
+  // Transform the form data if necessary
+  const updatedData = {
+    ...this.updateForm.value,
+    department: { id: this.employeeData.department.id, name: this.updateForm.value.department },
+  };
 
-          setTimeout(() => {
-            this.successMessage = '';
-          }, 1000);
-        },
-        (error) => {
-          console.error('Error updating employee:', error);
-          this.successMessage = '';
-          this.errorMessage =
-            error.status === 500
-              ? 'Internal server error. Please try again later or contact support.'
-              : 'Error updating employee data.';
-        }
-      );
-    
-  }
+  // Debug the payload before sending
+  console.log('Payload sent to API:', updatedData);
+
+  this.employeeService.updateEmployee(this.employeeData.id, updatedData).subscribe(
+    (response) => {
+      console.log('Update response:', response);
+
+      // Show success message using SweetAlert
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Employee data updated successfully!',
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    },
+    (error) => {
+      console.error('Error updating employee:', error);
+
+      // Show error message using SweetAlert
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.status === 500
+          ? 'Internal server error. Please try again later or contact support.'
+          : 'Error updating employee data.',
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    }
+  );
+}
+
   
   
   }

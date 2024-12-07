@@ -6,7 +6,7 @@
   </div>
 
   <!-- Form Container -->
-  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
     <div class="form-container">
       <!-- Left Section -->
       <div class="form-left">
@@ -35,34 +35,68 @@
             Last Name is required.
           </div>
         </div>
+        <div class="form-row">
+          <label for="profilePicture">Profile Picture </label>
+          <input
+            type="file"
+            id="profilePicture"
+            (change)="onFileChange($event)"
+            accept="image/*"
+          />
+        </div>
 
         <div class="section-title">Job Details</div>
         <div class="form-row">
-          <label for="department">Department *</label>
-          <select id="department" formControlName="department"class="white-dropdown">
+          <label for="departmentName">Department Name *</label>
+          <select
+            id="departmentName"
+            formControlName="departmentName"
+            class="white-dropdown"
+            (change)="onDepartmentNameChange($event)"
+            class="white-dropdown"
+          >
             <option value="" disabled selected>Select Department</option>
-            <option *ngFor="let dept of departments" [value]="dept.id">
+            <option *ngFor="let dept of departments" [value]="dept.name">
               {{ dept.name }}
             </option>
           </select>
-          <div *ngIf="isFieldInvalid('department')" class="error">
+          <div *ngIf="isFieldInvalid('departmentName')" class="error">
             Department is required.
           </div>
         </div>
-
+        
         <div class="form-row">
-          <label for="role">Role </label>
-          <select id="role" formControlName="role" class="white-dropdown">
-            <option value=""disabled selected>Select Role</option>
-            <option value="Developer">Developer</option>
-            <option value="Tester">Tester</option>
-            <option value="Trainee-Hr">Trainee-Hr</option>
-            <option value="Marketing manager">Marketing Manager</option>
+          <label for="departmentId">Department Id</label>
+          <input
+            id="departmentId"
+            formControlName="departmentId"
+            type="text"
+            placeholder="Department ID"
+            readonly
+          />
+          <div *ngIf="isFieldInvalid('departmentId')" class="error">
+            Department ID is required.
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <label for="role">Role *</label>
+          <select
+            id="role"
+            formControlName="role"
+            class="white-dropdown"
+            [disabled]="!filteredRoles.length"
+          >
+            <option value="" disabled selected>Select Role</option>
+            <option *ngFor="let role of filteredRoles" [value]="role">
+              {{ role }}
+            </option>
           </select>
           <div *ngIf="isFieldInvalid('role')" class="error">
             Role is required.
           </div>
         </div>
+      
       </div>
 
       <!-- Right Section -->
@@ -90,7 +124,7 @@
             placeholder="1234567890"
           />
           <div *ngIf="isFieldInvalid('phoneNumber')" class="error">
-            Mobile number must be 10  digits.
+            Mobile number must be 10 digits.
           </div>
         </div>
 
