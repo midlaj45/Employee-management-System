@@ -76,5 +76,17 @@ button:hover {
   justify-content: center;
   gap: 10px;
 }
+
+.form-drop
+{
+  width:150px;
+  height:30px;
+  border-radius: 6px;
+  background-color: white;
+  
+   /* Remove the border */
+  outline: none; 
+  border-color: #d0d3d8;
  
- 
+}
+

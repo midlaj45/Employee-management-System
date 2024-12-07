@@ -39,7 +39,7 @@
       <h2>Employee Details</h2>
       <div class="employee-details">
         <div class="profile-picture-placeholder">
-          <img src="../../assets/employee.jpg" alt="Profile Picture" class="profile-picture" />
+          <img *ngIf="imageUrl" [src]="imageUrl"  alt="Profile Picture" class="profile-picture" />
         </div>
         <div class="details">
           <p><strong>Employee ID:</strong> {{ selectedEmployee.id }}</p>

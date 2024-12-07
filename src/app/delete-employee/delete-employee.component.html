@@ -22,10 +22,14 @@
 
   <!-- Employee Details Card (Displays after submitting ID) -->
   <div *ngIf="employeeDetails" class="employee-details-card">
-    <div class="profile-container">
-      <div class="profile-picture">
-        <!-- Placeholder for profile picture, replace with actual image later -->
-        <img src="../../assets/employee.jpg" alt="Profile Picture">
+    <div class="employee-info">
+      <div class="profile-picture-placeholder">
+        <!-- Display the actual employee image if available, else show a placeholder image -->
+        <img *ngIf="imageUrl; else placeholder" [src]="imageUrl" alt="profile-picture" class="profile-picture"/>
+        <ng-template #placeholder>
+          <!-- Default placeholder image -->
+          <img src="../../assets/employee.jpg" alt="profile-picture" class="profile-picture" />
+        </ng-template>
       </div>
       <div class="employee-text">
         <h2>Employee Details</h2>

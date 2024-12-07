@@ -74,6 +74,8 @@ button:hover {
   background-color: #ffffff;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+  align-items: center; /* Center the contents horizontally */
+  justify-content: center;
 }
 
 .profile-container {
@@ -137,4 +139,11 @@ button:hover {
   .employee-details-card {
     padding: 15px;
   }
+}
+.profile-picture {
+  width: 100px; /* You can adjust this value as per your requirements */
+  height: 100px; /* Ensure the height matches the width for a square image */
+  object-fit: cover; /* Ensures the image maintains its aspect ratio and doesn't stretch */
+  border-radius: 50%; /* Optional: Makes the image round */
+  border: 2px solid #ccc; 
 }

@@ -52,34 +52,46 @@
             />
           </td>
           <td>
-            <input
-              type="number"
-              placeholder="Tasks Assigned"
+            <!-- Task Assigned Dropdown -->
+            <select
               [(ngModel)]="row.tasksAssigned"
               name="tasksAssigned-{{ i }}"
+              class="form-drop"
               required
-              min="0"
-            />
+            >
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
           </td>
           <td>
-            <input
-              type="number"
-              placeholder="Tasks Completed"
+            <!-- Tasks Completed Dropdown -->
+            <select
               [(ngModel)]="row.tasksCompleted"
               name="tasksCompleted-{{ i }}"
+              class="form-drop"
               required
-              min="0"
-            />
+            >
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
           </td>
           <td>
-            <input
-              type="number"
-              placeholder="Tasks Completed On Time"
+            <!-- Tasks Completed On Time Dropdown -->
+            <select
               [(ngModel)]="row.tasksCompletedOnTime"
               name="tasksCompletedOnTime-{{ i }}"
+              class="form-drop"
               required
-              min="0"
-            />
+            >
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
           </td>
           <td>
             <button type="button" class="remove-button" (click)="removeRow(i)">Remove</button>
