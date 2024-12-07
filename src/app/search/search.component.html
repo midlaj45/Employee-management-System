@@ -24,6 +24,7 @@
             <th>Employee ID</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Department</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -32,6 +33,8 @@
             <td>{{ employee.id }}</td>
             <td>{{ employee.firstName }}</td>
             <td>{{ employee.lastName }}</td>
+            <td>{{ employee.department.name }}</td>
+
             <td>
               <button class="view-button" (click)="onViewMore(employee)">View</button>
             </td>
@@ -57,10 +60,12 @@
           <p><strong>Name:</strong> {{ selectedEmployee.firstName }} {{ selectedEmployee.lastName }}</p>
           <p><strong>Email:</strong> {{ selectedEmployee.emailId }}</p>
           <p><strong>Department:</strong> {{ selectedEmployee.department.name }}</p>
+          <p><strong>Role:</strong> {{ selectedEmployee.role }}</p>
         </div>
       </div>
       <button class="close-button" (click)="closeEmployeeDetails()">Close</button>
     </div>
   </div>
 </div>
+
 
