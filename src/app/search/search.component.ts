@@ -25,7 +25,7 @@ export class SearchComponent implements OnInit {
   errorMessage: string | null = null;
   departments: string[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 7;
   totalPages: number = 1;
   imageUrl: string | null = null;
 
@@ -71,13 +71,13 @@ export class SearchComponent implements OnInit {
             .toLowerCase()
             .includes(this.searchValue.toLowerCase())
       );
-    } else if (this.searchType === 'department') {
+    }  if (this.searchType === 'department') {
       this.filteredEmployees = this.employees.filter((employee) =>
         employee.department.name
           .toLowerCase()
           .includes(this.searchValue.toLowerCase())
       );
-    } else if (this.searchType === 'id') {
+    }  if (this.searchType === 'id') {
       const searchId = Number(this.searchValue);
       this.filteredEmployees = this.employees.filter(
         (employee) => employee.id === searchId
@@ -136,3 +136,4 @@ export class SearchComponent implements OnInit {
     );
   }
 }
+
