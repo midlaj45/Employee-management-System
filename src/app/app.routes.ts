@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 
-import { SearchComponent} from './search/search.component';
+
 
 import { FormsModule } from '@angular/forms';
 import { WorkingHoursComponent } from './working-hours/working-hours.component';

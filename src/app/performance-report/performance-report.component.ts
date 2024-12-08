@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Chart from 'chart.js/auto'; // Import Chart.js
-
+ 
 @Component({
   selector: 'app-performance-report',
   standalone: true,
@@ -21,21 +21,25 @@ export class PerformanceReportComponent implements OnInit {
   searchedEmployee: any = null;
   showTable: boolean = true;  // Define the showTable property here
   showEmployeeSearchForm: boolean = false; // Flag to show the search form
-  searchId: string = ''; 
-  currentPage: number = 1;
-  totalPages: number = 10; 
+  searchId: string = '';
+  // currentPage: number = 1;
+  // totalPages: number = 10;
   showGraph: boolean = false;
+  filteredEmployees: any[] = [];
+  p: number = 1;
+  pageSize: number = 5;
+ 
  
   constructor(
     private performanceReportService: PerformanceReportService,
     private employeeService: EmployeeService,
     private cdr: ChangeDetectorRef
   ) {}
-
+ 
   ngOnInit(): void {
     this.fetchPerformanceData();
   }
-
+ 
   fetchPerformanceData(): void {
     this.performanceReportService.getPerformanceData().subscribe(
       (data: string) => {
@@ -48,9 +52,10 @@ export class PerformanceReportComponent implements OnInit {
             id: id.trim(),
             performance: parseFloat(performance.trim()).toFixed(2),
           }));
-
+ 
         this.performanceData.forEach((record) => {
           this.fetchEmployeeDetails(record.id);
+          
         });
       },
       (err) => {
@@ -64,9 +69,9 @@ export class PerformanceReportComponent implements OnInit {
   // New method to show the performance graph
   showPerformanceGraph(): void {
     this.showGraph = !this.showGraph;  // Toggle graph visibility
-    this.showEmployeeSearchForm = false; 
+    this.showEmployeeSearchForm = false;
     this.showTable = false;
-    this.searchedEmployee = null; 
+    this.searchedEmployee = null;
     console.log('Button clicked! showGraph:', this.showGraph);  // Check toggle
   
     if (this.showGraph) {
@@ -87,7 +92,7 @@ renderPerformanceGraph(): void {
     
     const employeeIds = this.performanceData.map(record => record.id);
     const performances = this.performanceData.map(record => parseFloat(record.performance));
-
+ 
     new Chart(ctx, {
       type: 'bar',
       data: {
@@ -131,27 +136,21 @@ renderPerformanceGraph(): void {
   }
 }
   
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-    }
-  }
-
+  
+ 
   fetchEmployeeDetails(employeeId: string): void {
-    this.employeeService.getEmployeeById(+employeeId).subscribe(
+    this.employeeService.getAllEmployeeById(+employeeId).subscribe(
       (response) => {
+        console.log(response); // Check full response
         if (response && response.data) {
           const employee = response.data;
+          console.log(employee); // Check employee data
+  
+          // Update `employeeDetails` with relevant fields
           this.employeeDetails[employeeId] = {
             name: `${employee.firstName} ${employee.lastName}`,
-            department: employee.department?.name || 'Not Available',
-            role: employee.role || 'Not Available',
+            department: employee.department?.name || 'No Department Assigned',
+            role: employee.role || 'No Role Assigned',
           };
         }
       },
@@ -160,12 +159,13 @@ renderPerformanceGraph(): void {
       }
     );
   }
-
+  
+ 
   viewAllReports(): void {
     this.showTable = true;  // Show the performance report table again
     this.showEmployeeSearchForm = false; // Flag to show the search form
     this.showGraph =false;
-    this.searchedEmployee = null; 
+    this.searchedEmployee = null;
     this.fetchPerformanceData();
   }
   
@@ -178,7 +178,7 @@ renderPerformanceGraph(): void {
   getCirclePercentage(performance: number): number {
     return (performance / 100) * 283;  // 283 is the maximum circumference of the circle
   }
-
+ 
   generatePerformanceChart(performanceScore: string): void {
     const ctx = (document.getElementById('performance-chart') as HTMLCanvasElement)?.getContext('2d');
     if (ctx) {
@@ -197,27 +197,27 @@ renderPerformanceGraph(): void {
       });
     }
   }
-
+ 
   // Show the employee search form
   showSearchEmployee(): void {
     this.showTable = false;
     this.showGraph =false;
     this.showEmployeeSearchForm = !this.showEmployeeSearchForm;
   }
-
+ 
   // Search for an employee by ID
   searchEmployee(): void {
     if (this.searchId) {
       const performance = this.performanceData?.find(
         (record) => record.id === this.searchId
       )?.performance;
-
+ 
       if (!performance) {
         alert('Performance data not available for this employee.');
         return;
       }
-
-      this.employeeService.getEmployeeById(+this.searchId).subscribe(
+ 
+      this.employeeService.getAllEmployeeById(+this.searchId).subscribe(
         (response) => {
           if (response && response.data) {
             const employee = response.data;
@@ -240,8 +240,27 @@ renderPerformanceGraph(): void {
       );
     }
   }
+ 
+  // closeSearchForm(): void {
+  //   this.showEmployeeSearchForm = false;
+  // }
 
-  closeSearchForm(): void {
-    this.showEmployeeSearchForm = false;
+  totalPages(): number {
+    return Math.ceil(this.filteredEmployees.length / this.pageSize);
   }
+
+  pagedEmployees(): any[] {
+    const startIndex = (this.p - 1) * this.pageSize;
+    const endIndex = this.p * this.pageSize;
+    return this.filteredEmployees.slice(startIndex, endIndex);
+  }
+
+  setPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.p = page;
+    }
+  }
+
 }
+ 
+ 

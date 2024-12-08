@@ -8,7 +8,14 @@
   <!-- Content Area -->
   <div class="content-area" [ngClass]="{'content-area-without-sidebar': isExcludedRoute()}">
     <router-outlet></router-outlet>
+    <!-- <app-dashboard></app-dashboard> -->
   </div>
+  <!-- <div class="content-area" [ngClass]="{'content-area-without-sidebar': isExcludedRoute()}"> -->
+    <!-- Embed the Dashboard HTML -->
+    <!-- <router-outlet></router-outlet>
+    <app-dashboard></app-dashboard>
+  </div> -->
+
 
   <!-- Footer (fixed at bottom) -->
   <app-footer *ngIf="!isExcludedRoute()"></app-footer>
