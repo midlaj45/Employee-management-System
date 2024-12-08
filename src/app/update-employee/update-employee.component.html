@@ -27,7 +27,7 @@
   </div>
 
   <!-- Update Employee Form (Visible after successful search, but not deleted) -->
-  <div *ngIf="updateForm && employeeData && !employeeData.isDeleted" class="update-section">
+  <div *ngIf="updateForm " class="update-section">
     <h2>Edit Employee Details</h2>
     <form [formGroup]="updateForm" (ngSubmit)="updateEmployee()">
       

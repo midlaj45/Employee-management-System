@@ -1,121 +1,53 @@
-/* General styles */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
+.employee-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-top: 70px;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding: 10px 70px;
+}
+
+.employee-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.employee-details {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.profile-picture {
+  padding-left: 25px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.close-button {
+  margin-top: 15px;
+}
+.row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.top{
+  margin-top: 100px;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   
-  .container-fluid {
-    padding: 0;
-  }
-  
-  .container {
-    padding: 0 15px; /* Add padding around container */
-  }
-  
-  .row {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;  /* Allows wrapping of items to next line */
-  }
-  
-  /*.action-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 600px;
-    width:300px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    transition: transform 0.3s ease-in-out;
-    margin-left: 300px;
-  }*/
-  
-  .action-box:hover {
-    transform: translateY(-5px);
-  }
-  
-  button {
-    font-size: 14px;
-    width:300px;
-    height:100px;
-    border-radius: 6px;
-    transition: background 0.3s ease;
-    margin-top:100px;
-  }
-  
-  .btn-primary {
-    background-image: linear-gradient(to right, #4fbed1, #2575fc);
-   border: none;
-  }
-  
-  .btn-primary:hover {
-    background-image: linear-gradient(to right, #4fbed1, #2575fc);
-  }
-  
-  .btn-danger {
-    background-image: linear-gradient(to right, #4fbed1, #2575fc);
-    border: none;
-  }
-  
-  .btn-danger:hover {
-    background-image: linear-gradient(to right, #4fbed1, #2575fc);
-  }
-  
-  .btn-warning {
-    background-image: linear-gradient(to right, #4fbed1, #2575fc);
-    border: none;
-  }
-  
-  .btn-warning:hover {
-    background-image: linear-gradient(to right, #4fbed1, #2575fc);
-  }
-  
-  .btn-success {
-    background-image: linear-gradient(to right, #4fbed1, #2575fc);
-    border: none;
-  }
-  
-  .btn-success:hover {
-    background-image: linear-gradient(to right, #4fbed1, #2575fc);
-  }
-  
-  .btn-info {
-    background-image: linear-gradient(to right, #4fbed1, #2575fc);
-    border: none;
-  }
-  
-  .btn-info:hover {
-    background-image: linear-gradient(to right, #4fbed1, #2575fc);
-  }
-  
-  .btn-secondary {
-    background-image: linear-gradient(to right, #4fbed1, #2575fc);
-    border: none;
-  }
-  
-  .btn-secondary:hover {
-    background-image: linear-gradient(to right, #4fbed1, #2575fc);
-  }
-  
-  /* Button Container Styling */
-  .col-6 {
-    flex: 0 0 48%; /* Each takes 48% of the width, so 2 per row */
-    margin-bottom: 20px; /* Space between columns */
-  }
-  .col-12 {
-    padding: 0 5px; /* Reduced horizontal padding for each column */
-    margin-bottom: 10px; /* Reduced space between rows */
-  }
-  
-  .col-md-6 {
-    flex: 0 0 48%; /* 48% width for medium and larger screens */
-    padding: 100px; /* Reduced padding between columns */
-  }
-  /* Responsive Design for smaller screens */
-  @media (max-width: 768px) {
-    .col-6 {
-      flex: 0 0 100%; /* 100% width for smaller screens */
-    }
-  }
-  
+}
+.top h1 {
+  background: linear-gradient(90deg, #4fbed1, #2575fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

@@ -2,90 +2,103 @@
   <button (click)="viewAllReports()">All Reports</button>
   <button (click)="showSearchEmployee()">Search Employee</button>
   <button (click)="showPerformanceGraph()">Performance Graph</button>
-</div>
-
-<div class="content">
+  </div>
+   
+  <div class="content">
   <!-- All Reports Section -->
-  <div *ngIf="showTable">
-    <h2>Employee Performance Reports</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Role</th>
-          <th>Department</th>
-          <th>Performance</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let employee of performanceData">
-          <td>{{ employee.id }}</td>
-          <td>{{ employeeDetails[employee.id]?.name || 'Not Available' }}</td>
-          <td>{{ employeeDetails[employee.id]?.role || 'Not Available' }}</td>
-          <td>{{ employeeDetails[employee.id]?.department || 'Not Available' }}</td>
-          <td>{{ employee.performance }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div *ngIf="showTable" class="performance-table">
+  <h2>Employee Performance Reports</h2>
+  <table>
+  <thead>
+  <tr>
+  <th>ID</th>
+  <th>Name</th>
+  <th>Role</th>
+  <th>Department</th>
+  <th>Performance</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let employee of performanceData">
+  <td>{{ employee.id }}</td>
+  <td>{{ employeeDetails[employee.id]?.name  }}</td>
+  <td>{{ employeeDetails[employee.id].role }}</td>
+  <td>{{ employeeDetails[employee.id].department}}</td>
+  <td>{{ employee.performance }}</td>
+  </tr>
+  </tbody>
+  </table>
+   
+ 
 
-    <!-- Pagination Controls -->
-    <div class="pagination">
-      <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
-      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+   <!-- Pagination Controls -->
+    <div class="pagination-controls">
+      <button class="page-button" (click)="setPage(p - 1)" [disabled]="p <= 1">Previous</button>
+      <span>Page {{ p }} of {{ totalPages() }}</span>
+      <button class="page-button" (click)="setPage(p + 1)" [disabled]="p >= totalPages()">Next</button>
     </div>
   </div>
-
-<!-- Search Employee Section -->
-<div *ngIf="showEmployeeSearchForm">
-  <h3>Enter Employee ID:</h3>
-  <input [(ngModel)]="searchId" placeholder="Employee ID" />
-  <button (click)="searchEmployee()">Search</button>
-  <button (click)="closeSearchForm()">Close</button>
-</div>
-
-<!-- Display Employee Details -->
+   
+  <!-- Search Employee Section -->
+  <div *ngIf="showEmployeeSearchForm" class="search-employee">
+  
+    <div class="form-row">
+      <div>
+      <label for="employeeId">Employee ID</label>
+    </div>
+      <input id="employeeId" [(ngModel)]="searchId"placeholder="Enter Employee ID"/>
+    </div>
+     <div class="button-for-search">
+      <button (click)="searchEmployee()">Search</button>
+     </div> 
+    
+  </div>
+   
+  <!-- Display Employee Details -->
   <div *ngIf="searchedEmployee">
-  
-    <!-- Employee Details -->
-    
-      <h4>Employee Details</h4>
-      <p><strong>Name:</strong> {{ searchedEmployee.name }}</p>
-      <p><strong>Department:</strong> {{ searchedEmployee.department }}</p>
-      <p><strong>Role:</strong> {{ searchedEmployee.role }}</p>
-      <p><strong>Performance:</strong> {{ searchedEmployee.performance }}</p>
-    
+  <!-- Employee Details -->
+  <h4>Employee Details</h4>
+  <p><strong>Name:</strong> {{ searchedEmployee.name }}</p>
+  <p><strong>Department:</strong> {{ searchedEmployee.department }}</p>
+  <p><strong>Role:</strong> {{ searchedEmployee.role }}</p>
+  <p><strong>Performance:</strong> {{ searchedEmployee.performance }}</p>
   </div>
-
-  <!-- Performance Chart Section below employee info -->
-<div *ngIf="searchedEmployee && searchedEmployee.performance" class="performance-chart">
+   
+    <!-- Performance Chart Section below employee info -->
+  <div *ngIf="searchedEmployee && searchedEmployee.performance" class="performance-chart">
   <div class="circle-container">
-    <svg width="100" height="100" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="45" fill="none" stroke="#e6e6e6" stroke-width="10"></circle>
-      <circle
-        cx="50"
-        cy="50"
-        r="45"
-        fill="none"
-        stroke-width="10"
-        [attr.stroke]="getCircleColor(searchedEmployee.performance)"
-        [attr.stroke-dasharray]="getCirclePercentage(searchedEmployee.performance) + ', 283'"
-      ></circle>
-    </svg>
-  </div>
-</div>
-
-<!-- Performance Graph Section -->
-<div *ngIf="showGraph">
-  <canvas id="performanceChart" width="200" height="200"></canvas>
-</div>
-
-
-
-  <!-- Divider between sections -->
-  <div class="divider"></div>
-
-  <!-- Performance Graph Section -->
+  <svg width="100" height="100" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="45" fill="none" stroke="#e6e6e6" stroke-width="10"></circle>
+  <circle
   
-</div>
+          cx="50"
+  
+          cy="50"
+  
+          r="45"
+  
+          fill="none"
+  
+          stroke-width="10"
+  
+          [attr.stroke]="getCircleColor(searchedEmployee.performance)"
+  
+          [attr.stroke-dasharray]="getCirclePercentage(searchedEmployee.performance) + ', 283'"
+  ></circle>
+  </svg>
+  </div>
+  </div>
+   
+  <!-- Performance Graph Section -->
+  <div *ngIf="showGraph">
+  <canvas id="performanceChart" width="200" height="200"></canvas>
+  </div>
+   
+   
+    <!-- Divider between sections -->
+  <div class="divider"></div>
+   
+    <!-- Performance Graph Section -->
+  </div>
+  
+   

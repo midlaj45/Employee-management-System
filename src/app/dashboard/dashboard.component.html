@@ -1,52 +1,74 @@
+<div class="container my-5">
+  <div class="top">
 
-<div class="container-fluid" >
-    <div class="container my-5">
-      
-      <!-- First Row: Two Buttons -->
-      <div class="row mb-4">
-        <div class="col-6">
-          <div >
-            <button (click)="navigateToAddEmployee()" class="btn btn-primary btn-block">Add Employee</button>
-          </div>
-        </div>
+    <h1 class="h1">Top Performers</h1>
+  </div>
+  <div class="row">
     
-        <div class="col-6">
-          <div >
-            <button (click)="navigateToDeleteEmployee()" class="btn btn-danger btn-block">Delete Employee</button>
+    <!-- Card 1 -->
+    <div class="col-md-4" *ngIf="selectedEmployee1">
+      <div class="employee-card">
+        <h2>Top 1 Performer</h2>
+        <div class="employee-details">
+          <div class="profile-picture-placeholder">
+            <img src="../../assets/employee.jpg" alt="Profile Picture" class="profile-picture" />
+          </div>
+          <div class="details">
+            <p><strong>Employee ID:</strong> {{ selectedEmployee1.id }}</p>
+            <p><strong>First Name:</strong> {{ selectedEmployee1.firstName }}</p>
+            <p><strong>Last Name:</strong> {{ selectedEmployee1.lastName }}</p>
+            <!-- <p><strong>Email:</strong> {{ selectedEmployee1.emailId }}</p> -->
+            <!-- <p><strong>Phone Number:</strong> {{ selectedEmployee1.phoneNumber }}</p> -->
+            <p><strong>Department:</strong> {{ selectedEmployee1.department.name }}</p>
+            <p><strong>Role:</strong> {{ selectedEmployee1.role }}</p>
+            <p><strong>Performance:</strong> {{ selectedEmployee1.performance }}%</p>
           </div>
         </div>
       </div>
-  
-      <!-- Second Row: Two Buttons -->
-      <div class="row mb-4">
-        <div class="col-6">
-          <div >
-            <button (click)="navigateToUpdateEmployee()" class="btn btn-warning btn-block">Update Employee</button>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-md-4" *ngIf="selectedEmployee2">
+      <div class="employee-card">
+        <h2>Top 2 Performer</h2>
+        <div class="employee-details">
+          <div class="profile-picture-placeholder">
+            <img src="../../assets/employee.jpg" alt="Profile Picture" class="profile-picture" />
           </div>
-        </div>
-    
-        <div class="col-6">
-          <div >
-            <button (click)="navigateToViewEmployee()" class="btn btn-success btn-block">View Employee</button>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Third Row: Two Buttons -->
-      <div class="row mb-4">
-        <div class="col-6">
-          <div >
-            <button (click)="navigateToWorkingHours()" class="btn btn-info btn-block">Add Work Hours</button>
-          </div>
-        </div>
-    
-        <div class="col-6">
-          <div >
-            <button class="btn btn-secondary btn-block">Performance Report</button>
+          <div class="details">
+            <p><strong>Employee ID:</strong> {{ selectedEmployee2.id }}</p>
+            <p><strong>First Name:</strong> {{ selectedEmployee2.firstName }}</p>
+            <p><strong>Last Name:</strong> {{ selectedEmployee2.lastName }}</p>
+            <!-- <p><strong>Email:</strong> {{ selectedEmployee2.emailId }}</p> -->
+            <!-- <p><strong>Phone Number:</strong> {{ selectedEmployee2.phoneNumber }}</p> -->
+            <p><strong>Department:</strong> {{ selectedEmployee2.department.name }}</p>
+            <p><strong>Role:</strong> {{ selectedEmployee2.role }}</p>
+            <p><strong>Performance:</strong> {{ selectedEmployee2.performance }}%</p>
           </div>
         </div>
       </div>
-  
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col-md-4" *ngIf="selectedEmployee3">
+      <div class="employee-card">
+        <h2>Top 3 Performer</h2>
+        <div class="employee-details">
+          <div class="profile-picture-placeholder">
+            <img src="../../assets/employee.jpg" alt="Profile Picture" class="profile-picture" />
+          </div>
+          <div class="details">
+            <p><strong>Employee ID:</strong> {{ selectedEmployee3.id }}</p>
+            <p><strong>First Name:</strong> {{ selectedEmployee3.firstName }}</p>
+            <p><strong>Last Name:</strong> {{ selectedEmployee3.lastName }}</p>
+            <!-- <p><strong>Email:</strong> {{ selectedEmployee3.emailId }}</p> -->
+            <!-- <p><strong>Phone Number:</strong> {{ selectedEmployee3.phoneNumber }}</p> -->
+            <p><strong>Department:</strong> {{ selectedEmployee3.department.name }}</p>
+            <p><strong>Role:</strong> {{ selectedEmployee3.role }}</p>
+            <p><strong>Performance:</strong> {{ selectedEmployee3.performance }}%</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  
+</div>
